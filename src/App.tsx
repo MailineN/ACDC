@@ -1,12 +1,19 @@
 import './App.css';
 import { CssVarsProvider } from '@mui/joy/styles';
-import Button from '@mui/joy/Button';
+import Root from './components/shared/layout/Root';
 import RoutesWebs from './lib/routes/routes';
 
 function App() {
   return (
     <CssVarsProvider>
-      <RoutesWebs />
+      <Root
+        sx={{
+          height: '100vh',
+          overflow: 'hidden',
+        }}
+      >
+        <RoutesWebs />
+      </Root>
     </CssVarsProvider>
   );
 }
