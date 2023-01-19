@@ -1,22 +1,20 @@
 import { useState } from 'react';
-import { Button } from '@mui/joy';
+import { Button, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import Main from '../../shared/layout/Main';
-
 const Home = () => {
   const [count, setCount] = useState(0);
-
+  const { t, i18n } = useTranslation(['home']);
   return (
     <Main>
       <div className="App">
-        <h1>ACDC Homepage 🤘🏻</h1>
+        <Typography variant="h2" fontWeight="xl">
+          {t('title')}
+        </Typography>
         <div className="card">
-          <Button
-            variant="outlined"
-            onClick={() => setCount((count) => count + 1)}
-          >
-            Count is {count}
-          </Button>
-          <p>POC ACDC front-end</p>
+          <Typography variant="subtitle1" fontWeight="xl">
+            {t('description')}
+          </Typography>
         </div>
       </div>
     </Main>

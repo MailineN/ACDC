@@ -1,4 +1,4 @@
-import { Box, BoxProps } from '@mui/joy';
+import { Box, BoxProps } from '@mui/material';
 
 function Main(props: BoxProps) {
   return (

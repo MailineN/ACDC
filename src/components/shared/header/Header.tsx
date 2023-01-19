@@ -1,49 +1,56 @@
 import { useState } from 'react';
-import { Box, IconButton, Typography, Menu, MenuItem } from '@mui/joy';
-import MenuIcon from '@mui/icons-material/Menu';
-import { Flag } from '@mui/icons-material';
+import { Box, IconButton, Typography, Menu, MenuItem } from '@mui/material';
+import { FiFlag } from 'react-icons/fi';
+import { useTranslation } from 'react-i18next';
 import HeaderComponent from '../layout/Header';
 
 const Header = () => {
+  const { t, i18n } = useTranslation(['header']);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
+
+  const handleChange = (event: any, lg: string) => {
+    console.log('Select Language: ' + lg);
+    i18n.changeLanguage(lg);
+    setAnchorEl(null);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
   return (
     <HeaderComponent>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          gap: 1.5,
+      <Typography variant="h5" fontWeight="xl">
+        {t('app_title')}
+      </Typography>
+      <IconButton
+        id="flag-button"
+        aria-controls={open ? 'select-language-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+      >
+        <FiFlag />
+      </IconButton>
+      <Menu
+        id="select-language-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'lock-button',
+          role: 'listbox',
         }}
       >
-        <Typography component="h1" fontWeight="xl">
-          ACDC Homepage
-        </Typography>
-        <IconButton
-          variant="outlined"
-          size="sm"
-          onClick={handleClick}
-          //sx={{ display: { sm: 'none' } }}
-        >
-          <Flag />
-        </IconButton>
-        <Menu
-          id="lang-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-        >
-          <MenuItem onClick={handleClose}>Français 🇫🇷</MenuItem>
-          <MenuItem onClick={handleClose}>English 🇬🇧</MenuItem>
-        </Menu>
-      </Box>
+        <MenuItem value="fr" onClick={(event) => handleChange(event, 'fr')}>
+          🇫🇷
+        </MenuItem>
+        <MenuItem value="en" onClick={(event) => handleChange(event, 'en')}>
+          🇬🇧
+        </MenuItem>
+      </Menu>
     </HeaderComponent>
   );
 };

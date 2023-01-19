@@ -1,10 +1,13 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
-
+html {
+  /* this makes sure the padding and the border is included in the box sizing */
+  box-sizing: border-box;
+  /*overflow-x: hidden;*/
+}
 .logo {
   height: 6em;
   padding: 1.5em;

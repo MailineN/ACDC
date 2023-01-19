@@ -1,4 +1,4 @@
-import { Box, BoxProps } from '@mui/joy';
+import { Box, BoxProps } from '@mui/material';
 
 function HeaderComponent(props: BoxProps) {
   return (
@@ -8,14 +8,12 @@ function HeaderComponent(props: BoxProps) {
       {...props}
       sx={[
         {
-          p: 2,
-          gap: 2,
-          bgcolor: 'background.surface',
-          display: 'flex',
+          p: 1,
+          display: 'inline-flex',
           flexDirection: 'row',
-          justifyContent: 'space-between',
           alignItems: 'center',
-          gridColumn: '1 / -1',
+          justifyContent: 'space-between',
+          width: '100%',
           borderBottom: '1px solid',
           borderColor: 'divider',
           position: 'sticky',

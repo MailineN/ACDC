@@ -1,4 +1,4 @@
-import { Box, BoxProps } from '@mui/joy';
+import { Box, BoxProps } from '@mui/material';
 
 function Root(props: BoxProps) {
   return (
@@ -7,6 +7,7 @@ function Root(props: BoxProps) {
       sx={[
         {
           minHeight: '100vh',
+          minWidth: '90vw',
         },
         ...(Array.isArray(props.sx) ? props.sx : [props.sx]),
       ]}
