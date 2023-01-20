@@ -1,0 +1,18 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: acdc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: acdc
+  template:
+    metadata:
+      labels:
+        app: acdc
+    spec:
+      containers:
+        - name: acdc
+          image: mailinenguyen/acdc:latest
+          imagePullPolicy: Always
