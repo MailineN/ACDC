@@ -5,8 +5,9 @@
   "cancel": "Cancel",
   "close": "Close",
   "statistical_program": "Statistical Program",
-  "statistical_cycle": "Statistical Cycle",
+  "statistical_cycle": "cycle",
   "label": "Label",
   "descriptionField": "Description",
-  "submitmessage": "Data collection created successfully"
+  "submitmessage": "Data collection created successfully",
+  "addLanguage": "Add language"
 }

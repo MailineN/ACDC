@@ -4,9 +4,10 @@
   "submit": "Envoyer",
   "cancel": "Annuler",
   "close": "Fermer",
-  "statistical_program": "Enquête",
+  "statistical_program": "Enquête :",
   "statistical_cycle": "Édition?",
   "label": "Label",
   "descriptionField": "Description",
-  "submitmessage": "La campagne a été créée avec succès."
+  "submitmessage": "La campagne a été créée avec succès.",
+  "addLanguage": "Ajouter une langue"
 }

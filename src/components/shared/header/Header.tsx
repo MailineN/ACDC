@@ -31,6 +31,7 @@ const Header = () => {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
+        sx={{ mr: 2 }}
       >
         <FiFlag />
       </IconButton>

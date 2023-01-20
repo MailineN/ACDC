@@ -10,7 +10,6 @@ import {
   Button,
   Stack,
   TextField,
-  InputLabel,
   Select,
   MenuItem,
   SelectChangeEvent,
@@ -22,13 +21,17 @@ import { useNavigate } from 'react-router-dom';
 const CollectionForm = () => {
   const { t } = useTranslation(['dataCollectionForm']);
   const navigate = useNavigate();
+
+  const [lgLabel, setLgLabel] = useState(1);
+  const [firstLanguage, setFirstLanguage] = useState('en');
+  const [lgDescription, setLgDescription] = useState(1);
   const [statisticalProgram, setStatisticalProgram] = useState('EEC');
   const [statisticalProgramError, setStatisticalProgramError] = useState('');
   const [statisticalCycle, setStatisticalCycle] = useState('2023');
   const [statisticalCycleError, setStatisticalCycleError] = useState('');
-  const [label, setLabel] = useState<string[] | undefined>([]);
+  const [label, setLabel] = useState('');
   const [labelError, setLabelError] = useState('');
-  const [description, setDescription] = useState<string[] | undefined>([]);
+  const [description, setDescription] = useState('');
   const [descriptionError, setDescriptionError] = useState('');
   const [open, setOpen] = useState(false);
 
@@ -54,10 +57,27 @@ const CollectionForm = () => {
     handleClickOpen();
   };
 
+  const addLanguageLabel = (event: any, lg: string) => {
+    console.log('Select Language: ' + lg);
+  };
+
   return (
     <>
       <FormControl size="small" fullWidth sx={{ marginTop: 3 }}>
-        <Stack spacing={3}>
+        <Stack spacing={2}>
+          <Box
+            component="form"
+            className="CollectionForm"
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-start',
+            }}
+          >
+            <Typography variant="h6">
+              {t('statistical_program')} & {t('statistical_cycle')}:
+            </Typography>
+          </Box>
+
           <Box
             component="form"
             className="CollectionForm"
@@ -65,20 +85,20 @@ const CollectionForm = () => {
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'flex-start',
-              alignContent: 'stretch',
             }}
           >
-            <InputLabel id="select-program" color="primary" shrink={true}>
-              {t('statistical_program')}
-            </InputLabel>
             <Select
               color="primary"
               labelId="select-program"
               label={t('statistical_program')}
               displayEmpty
               value={statisticalProgram}
-              onChange={handleChangeProgram}
-              sx={{ marginRight: 2 }}
+              onChange={(event) => setStatisticalProgram(event.target.value)}
+              sx={{
+                '& legend': { display: 'none' },
+                '& fieldset': { top: 0 },
+                marginRight: 2,
+              }}
               notched={true}
             >
               <MenuItem value={'EEC'}>Enquête Emploi En Continu</MenuItem>
@@ -89,7 +109,7 @@ const CollectionForm = () => {
               color="primary"
               value={statisticalCycle}
               displayEmpty
-              onChange={handleChangeCycle}
+              onChange={(event) => setStatisticalCycle(event.target.value)}
               notched={true}
               sx={{ '& legend': { display: 'none' }, '& fieldset': { top: 0 } }}
             >
@@ -98,36 +118,108 @@ const CollectionForm = () => {
               <MenuItem value={'2021'}>2021</MenuItem>
             </Select>
           </Box>
+          <Box
+            component="form"
+            className="CollectionForm"
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-start',
+              paddingTop: 2,
+              borderTop: '1px solid',
+              borderColor: 'divider',
+            }}
+          >
+            <Typography variant="h6">{t('label')}:</Typography>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'flex-start',
+            }}
+          >
+            <TextField
+              required
+              size="small"
+              label={t('label')}
+              value={label}
+              error={!!labelError}
+              helperText={labelError}
+              sx={{ marginRight: 2, width: '100%' }}
+              onChange={(event) => setLabel(event.target.value)}
+            />
+            <Select
+              color="primary"
+              value={firstLanguage}
+              onChange={(event) => setFirstLanguage(event.target.value)}
+              sx={{
+                '& legend': { display: 'none' },
+                '& fieldset': { top: 0 },
+              }}
+              notched={true}
+            >
+              <MenuItem value="fr">🇫🇷</MenuItem>
+              <MenuItem value="en">🇬🇧</MenuItem>
+            </Select>
+          </Box>
+          <Box
+            component="form"
+            className="CollectionForm"
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-start',
+            }}
+          >
+            <Button variant="outlined" size="small" onClick={handleSubmit}>
+              <Typography>{t('addLanguage')}</Typography>
+            </Button>
+          </Box>
 
-          <TextField
-            required
-            size="small"
-            label={t('label')}
-            value={label}
-            error={!!labelError}
-            helperText={labelError}
-            onChange={(event) =>
-              setLabel((currentLabel) => [
-                ...(currentLabel !== undefined ? currentLabel : []),
-                event.target.value,
-              ])
-            }
-          />
-          <TextField
-            required
-            multiline
-            rows={4}
-            label={t('descriptionField')}
-            value={description}
-            error={!!descriptionError}
-            helperText={labelError}
-            onChange={(event) =>
-              setDescription((currentDescription) => [
-                ...(currentDescription !== undefined ? currentDescription : []),
-                event.target.value,
-              ])
-            }
-          />
+          <Box
+            component="form"
+            className="CollectionForm"
+            sx={{
+              paddingTop: 2,
+              display: 'flex',
+              justifyContent: 'flex-start',
+              borderTop: '1px solid',
+              borderColor: 'divider',
+            }}
+          >
+            <Typography variant="h6">{t('descriptionField')}:</Typography>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'flex-start',
+            }}
+          >
+            <TextField
+              required
+              multiline
+              rows={3}
+              label={t('descriptionField')}
+              value={description}
+              error={!!descriptionError}
+              helperText={labelError}
+              sx={{ marginRight: 2, width: '100%' }}
+              onChange={(event) => setDescription(event.target.value)}
+            />
+            <Select
+              color="primary"
+              value={firstLanguage}
+              onChange={(event) => setFirstLanguage(event.target.value)}
+              sx={{
+                '& legend': { display: 'none' },
+                '& fieldset': { top: 0 },
+              }}
+              notched={true}
+            >
+              <MenuItem value="fr">🇫🇷</MenuItem>
+              <MenuItem value="en">🇬🇧</MenuItem>
+            </Select>
+          </Box>
           <Box
             component="form"
             className="CollectionForm"
@@ -135,7 +227,6 @@ const CollectionForm = () => {
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'flex-start',
-              alignContent: 'stretch',
             }}
           >
             <Button
