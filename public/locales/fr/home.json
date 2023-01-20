@@ -1,4 +1,5 @@
 {
   "title": "ACDC Page d'Accueil",
-  "description": "ACDC POC Front-end, je laisse Thomas décrire l'acronyme"
+  "description": "ACDC POC Front-end, je laisse Thomas décrire l'acronyme",
+  "createButton": "Nouvelle Campagne"
 }

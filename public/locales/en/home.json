@@ -1,4 +1,5 @@
 {
   "title": "ACDC Homepage",
-  "description": "ACDC POC Front-end"
+  "description": "ACDC POC Front-end",
+  "createButton": "New Data Collection"
 }

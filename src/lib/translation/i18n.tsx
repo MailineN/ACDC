@@ -15,7 +15,7 @@ i18next
     // Remove resources from here
     fallbackLng: 'en',
 
-    ns: ['common', 'home', 'header'],
+    ns: ['common', 'home', 'header', 'dataCollectionForm'],
 
     interpolation: {
       escapeValue: false,
