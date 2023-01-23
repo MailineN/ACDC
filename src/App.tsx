@@ -7,7 +7,6 @@ function App() {
     <Root
       sx={{
         height: '100vh',
-        overflow: 'hidden',
       }}
     >
       <RoutesWebs />

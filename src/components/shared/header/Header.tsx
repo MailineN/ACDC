@@ -1,5 +1,12 @@
 import { useState } from 'react';
-import { Box, IconButton, Typography, Menu, MenuItem } from '@mui/material';
+import {
+  Box,
+  IconButton,
+  Typography,
+  Menu,
+  MenuItem,
+  Link,
+} from '@mui/material';
 import { FiFlag } from 'react-icons/fi';
 import { useTranslation } from 'react-i18next';
 import HeaderComponent from '../layout/Header';
@@ -23,7 +30,9 @@ const Header = () => {
   return (
     <HeaderComponent>
       <Typography variant="h5" fontWeight="xl">
-        {t('app_title')}
+        <Link href="/" underline="none" color="inherit">
+          {t('app_title')}
+        </Link>
       </Typography>
       <IconButton
         id="flag-button"
