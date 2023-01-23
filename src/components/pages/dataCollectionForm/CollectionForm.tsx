@@ -12,22 +12,19 @@ import {
   TextField,
   Select,
   MenuItem,
-  SelectChangeEvent,
   Box,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import DataCollection from '../../../lib/model/dataCollection';
+import { createDataCollection } from '../../../lib/api/remote/dataCollectionApi';
 
 const CollectionForm = () => {
   const { t } = useTranslation(['dataCollectionForm']);
   const navigate = useNavigate();
 
-  const [lgLabel, setLgLabel] = useState(1);
-  const [lgDescription, setLgDescription] = useState(1);
   const [statisticalProgram, setStatisticalProgram] = useState('EEC');
-  const [statisticalProgramError, setStatisticalProgramError] = useState('');
   const [statisticalCycle, setStatisticalCycle] = useState('2023');
-  const [statisticalCycleError, setStatisticalCycleError] = useState('');
   const [label, setLabel] = useState([
     {
       id: 1,
@@ -35,7 +32,6 @@ const CollectionForm = () => {
       value: '',
     },
   ]);
-  const [labelError, setLabelError] = useState('');
   const [description, setDescription] = useState([
     {
       id: 1,
@@ -43,16 +39,7 @@ const CollectionForm = () => {
       value: '',
     },
   ]);
-  const [descriptionError, setDescriptionError] = useState('');
   const [open, setOpen] = useState(false);
-
-  const handleChangeProgram = (event: SelectChangeEvent<string>) => {
-    setStatisticalProgram(event.target.value);
-  };
-
-  const handleChangeCycle = (event: SelectChangeEvent<string>) => {
-    setStatisticalCycle(event.target.value);
-  };
 
   const addLanguageLabel = () => {
     const lastLabelId = label[label.length - 1].id;
@@ -125,6 +112,19 @@ const CollectionForm = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    const now = Date.now();
+    const today = new Date(now);
+
+    const data: DataCollection = {
+      agency: 'fr.insee',
+      version: 1,
+      versionDate: today.toISOString(),
+      statisticalProgram: statisticalProgram,
+      programCycle: statisticalCycle,
+      label: label,
+      description: description,
+    };
+    createDataCollection(data);
     handleClickOpen();
   };
 
@@ -213,8 +213,6 @@ const CollectionForm = () => {
                   size="small"
                   label={t('label')}
                   value={label.value}
-                  error={!!labelError}
-                  helperText={labelError}
                   sx={{ marginRight: 2, width: '100%' }}
                   onChange={handleLabelChange}
                   id={index.toString()}
@@ -280,8 +278,6 @@ const CollectionForm = () => {
                   rows={3}
                   label={t('descriptionField')}
                   value={description.value}
-                  error={!!descriptionError}
-                  helperText={labelError}
                   sx={{ marginRight: 2, width: '100%' }}
                   onChange={(e) => handleDescriptionChange(e, index)}
                 />

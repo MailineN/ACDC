@@ -1,12 +1,5 @@
 import { useState } from 'react';
-import {
-  Box,
-  IconButton,
-  Typography,
-  Menu,
-  MenuItem,
-  Link,
-} from '@mui/material';
+import { IconButton, Typography, Menu, MenuItem, Link } from '@mui/material';
 import { FiFlag } from 'react-icons/fi';
 import { useTranslation } from 'react-i18next';
 import HeaderComponent from '../layout/Header';
