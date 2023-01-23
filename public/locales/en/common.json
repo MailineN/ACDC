@@ -1,0 +1,12 @@
+{
+  "table": "Table",
+  "field": "Field",
+  "filter": "Filter",
+  "page": "Page",
+  "rows": "Rows",
+  "search": "Search",
+  "statisticalProgram": "Statistical Program",
+  "programCycle": "Edition",
+  "lastUpdate": "Last Updated",
+  "goToCollection": "Go to Collection Page"
+}
