@@ -9,6 +9,8 @@
   "submitmessage": "Lot créé avec succès",
   "addLanguage": "Add language",
   "dataCollectionDate": "Date de collecte",
+  "collectionStartDate": "Date de début de collecte",
+  "collectionEndDate": "Date de fin de collecte",
   "modeOfCollection": "Mode de collecte",
   "instrumentReference": "Intrument (?)"
 }

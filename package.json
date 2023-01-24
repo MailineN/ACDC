@@ -21,6 +21,7 @@
     "@mui/styled-engine-sc": "^5.11.0",
     "@mui/x-data-grid": "^5.17.20",
     "@mui/x-date-pickers": "^5.0.15",
+    "date-fns": "^2.29.3",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-import": "^2.27.5",

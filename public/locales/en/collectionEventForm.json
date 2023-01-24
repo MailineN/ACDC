@@ -9,6 +9,8 @@
   "submitmessage": "Collection event created successfully",
   "addLanguage": "Add language",
   "dataCollectionDate": "Data collection date",
+  "collectionStartDate": "Collection start date",
+  "collectionEndDate": "Collection end date",
   "modeOfCollection": "Mode of collection",
   "instrumentReference": "Instrument reference"
 }

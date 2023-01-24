@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { DatePicker } from '@mui/x-date-pickers';
 import {
   Typography,
   FormControl,
@@ -16,15 +18,11 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import DataCollection from '../../../lib/model/dataCollection';
-import { createDataCollection } from '../../../lib/api/remote/dataCollectionApi';
-
 const EventForm = () => {
   const { t } = useTranslation(['collectionEventForm']);
   const navigate = useNavigate();
-
-  const [statisticalProgram, setStatisticalProgram] = useState('EEC');
-  const [statisticalCycle, setStatisticalCycle] = useState('2023');
+  const [startDate, setStartDate] = useState<dateFns | null>(null);
+  const [endDate, setEndDate] = useState<dateFns | null>(null);
   const [label, setLabel] = useState([
     {
       id: 1,
@@ -115,16 +113,6 @@ const EventForm = () => {
     const now = Date.now();
     const today = new Date(now);
 
-    const data: DataCollection = {
-      agency: 'fr.insee',
-      version: 1,
-      versionDate: today.toISOString(),
-      statisticalProgram: statisticalProgram,
-      programCycle: statisticalCycle,
-      label: label,
-      description: description,
-    };
-    createDataCollection(data);
     handleClickOpen();
   };
 
@@ -133,8 +121,6 @@ const EventForm = () => {
       <FormControl size="small" fullWidth sx={{ marginTop: 3 }}>
         <Stack spacing={2}>
           <Box
-            component="form"
-            className="CollectionForm"
             sx={{
               display: 'flex',
               justifyContent: 'flex-start',
@@ -193,8 +179,6 @@ const EventForm = () => {
           </Box>
 
           <Box
-            component="form"
-            className="CollectionForm"
             sx={{
               paddingTop: 2,
               display: 'flex',
@@ -260,8 +244,60 @@ const EventForm = () => {
           </Box>
 
           <Box
-            component="form"
-            className="CollectionForm"
+            sx={{
+              paddingTop: 2,
+              display: 'flex',
+              justifyContent: 'flex-start',
+              borderTop: '1px solid',
+              borderColor: 'divider',
+            }}
+          >
+            <Typography variant="h6">{t('dataCollectionDate')}:</Typography>
+          </Box>
+          <Stack spacing={2} direction="row">
+            <DatePicker
+              label={t('collectionStartDate')}
+              value={startDate}
+              onChange={(newValue) => {
+                setStartDate(newValue);
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
+            <DatePicker
+              label={t('collectionEndDate')}
+              value={endDate}
+              onChange={(newValue) => {
+                setEndDate(newValue);
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </Stack>
+
+          <Box
+            sx={{
+              paddingTop: 2,
+              display: 'flex',
+              justifyContent: 'flex-start',
+              borderTop: '1px solid',
+              borderColor: 'divider',
+            }}
+          >
+            <Typography variant="h6">{t('modeOfCollection')}:</Typography>
+          </Box>
+
+          <Box
+            sx={{
+              paddingTop: 2,
+              display: 'flex',
+              justifyContent: 'flex-start',
+              borderTop: '1px solid',
+              borderColor: 'divider',
+            }}
+          >
+            <Typography variant="h6">{t('instrumentReference')}:</Typography>
+          </Box>
+
+          <Box
             sx={{
               display: 'flex',
               flexDirection: 'row',
