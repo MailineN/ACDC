@@ -1,3 +1,4 @@
+import CollectionEvent from './collectionEvents';
 export default interface DataCollection {
   id: string;
   agency: string;
@@ -7,4 +8,5 @@ export default interface DataCollection {
   versionDate: string;
   label: any[];
   description: any[];
+  collectionEvents?: CollectionEvent[];
 }

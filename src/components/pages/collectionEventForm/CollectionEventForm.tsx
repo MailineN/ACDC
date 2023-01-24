@@ -18,12 +18,17 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { CollectionsOutlined } from '@mui/icons-material';
 import CollectionEvent from '../../../lib/model/collectionEvents';
 import TypeOfModeOfCollection from '../../../lib/model/typeOfModeOfCollection';
 import InstrumentReference from '../../../lib/model/instrumentReference';
 import { formatISO } from 'date-fns';
-const EventForm = () => {
+import DataCollection from '../../../lib/model/dataCollection';
+import { updateDataCollection } from '../../../lib/api/remote/dataCollectionApi';
+
+interface DataCollectionProps {
+  dataCollection?: DataCollection;
+}
+const EventForm = (props: DataCollectionProps) => {
   const { t } = useTranslation(['collectionEventForm']);
   const navigate = useNavigate();
   const [startDate, setStartDate] = useState<Date | null>(new Date());
@@ -171,7 +176,11 @@ const EventForm = () => {
       dataCollectionDate: dates,
     };
 
+    props.dataCollection?.collectionEvents.push(data);
+
     console.log('Data: ', data);
+
+    updateDataCollection(props.dataCollection?.id, props.dataCollection);
 
     handleClickOpen();
   };

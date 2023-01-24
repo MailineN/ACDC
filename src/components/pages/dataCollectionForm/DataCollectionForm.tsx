@@ -125,6 +125,7 @@ const CollectionForm = () => {
       programCycle: statisticalCycle,
       label: label,
       description: description,
+      collectionEvents: [],
     };
     createDataCollection(data);
     handleClickOpen();

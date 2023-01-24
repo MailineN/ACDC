@@ -1,18 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import Main from '../../shared/layout/Main';
 import EventForm from './CollectionEventForm';
+import DataCollection from '../../../lib/model/dataCollection';
+import { getDataCollection } from '../../../lib/api/remote/dataCollectionApi';
+import { useParams } from 'react-router-dom';
 
 const CreateCollectionEvent = () => {
   const { t } = useTranslation(['collectionEventForm']);
+  const id = useParams<string>();
+  const [dataCollection, setDataCollection] = useState<DataCollection>();
+  useEffect(() => {
+    getDataCollection(id).then((r) => setDataCollection(r));
+  }, []);
   return (
     <Main sx={{ justifyContent: 'flex-start' }}>
       <Typography variant="h2" fontWeight="xl">
         {t('title')}
       </Typography>
       <Typography variant="subtitle1">{t('description')}</Typography>
-      <EventForm />
+      <EventForm dataCollection={dataCollection} />
     </Main>
   );
 };

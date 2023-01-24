@@ -29,19 +29,11 @@ const DataGridHomePage = (props: DataGridHomePageProps) => {
 
   const columns: GridColDef[] = [
     {
-      field: 'statisticalProgram',
+      field: 'label',
       headerName: t('statisticalProgram').toString(),
       headerClassName: 'columns--header',
       flex: 0.3,
       description: t('statisticalProgram').toString(),
-    },
-    {
-      field: 'programCycle',
-      headerName: t('programCycle').toString(),
-      headerClassName: 'columns--header',
-      flex: 0.2,
-
-      description: t('programCycle').toString(),
     },
     {
       field: 'date',
@@ -60,7 +52,7 @@ const DataGridHomePage = (props: DataGridHomePageProps) => {
       description: t('goToCollection').toString(),
       renderCell: (params: any) => (
         <Link
-          href={`/collection/${params.value.url}`}
+          href={`/collection/${params.value.id}`}
           underline="none"
           color="inherit"
         >

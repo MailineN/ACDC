@@ -11,7 +11,7 @@ const RoutesWebs = () => {
         <Route path="/" element={<Home />} />
         <Route path="*" element={<h1>404: Not Found</h1>} />
         <Route path="/new" element={<CreateDataCollection />} />
-        <Route path="collection/new" element={<CreateCollectionEvent />} />
+        <Route path="collection/new/:id" element={<CreateCollectionEvent />} />
       </Routes>
     </Router>
   );
