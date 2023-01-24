@@ -1,0 +1,14 @@
+{
+  "title": "Nouveau Lot",
+  "description": "Créer un nouveau lot pour la campagne: ",
+  "submit": "Envoyer",
+  "cancel": "Annuler",
+  "close": "Fermer",
+  "label": "Label",
+  "descriptionField": "Description",
+  "submitmessage": "Lot créé avec succès",
+  "addLanguage": "Add language",
+  "dataCollectionDate": "Date de collecte",
+  "modeOfCollection": "Mode de collecte",
+  "instrumentReference": "Intrument (?)"
+}

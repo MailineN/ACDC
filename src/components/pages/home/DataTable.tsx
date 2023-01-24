@@ -8,6 +8,13 @@ import {
 import { Box, Link } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { FiChevronRight } from 'react-icons/fi';
+import { dataCollectionApiMock } from '../../../lib/api/mock/dataCollectionApiMock';
+
+interface DataGridHomePageProps {
+  rows: any;
+  heightTable: number;
+}
+
 const CustomToolbar = () => {
   return (
     <GridToolbarContainer>
@@ -17,7 +24,7 @@ const CustomToolbar = () => {
   );
 };
 
-const DataGridHomePage = (rows: any) => {
+const DataGridHomePage = (props: DataGridHomePageProps) => {
   const { t } = useTranslation(['common']);
 
   const columns: GridColDef[] = [
@@ -25,7 +32,7 @@ const DataGridHomePage = (rows: any) => {
       field: 'statisticalProgram',
       headerName: t('statisticalProgram').toString(),
       headerClassName: 'columns--header',
-      flex: 0.6,
+      flex: 0.3,
       description: t('statisticalProgram').toString(),
     },
     {
@@ -69,6 +76,8 @@ const DataGridHomePage = (rows: any) => {
         '& .columns--header': {
           fontWeight: '700',
         },
+        p: 2,
+        height: props.heightTable,
       }}
     >
       <DataGrid
@@ -79,16 +88,11 @@ const DataGridHomePage = (rows: any) => {
           toolbarFilters: t('filter'),
           toolbarExport: 'Export',
         }}
-        rows={rows}
+        rows={props.rows}
         columns={columns}
         //getRowHeight={() => 'auto'}
         autoPageSize
-        //pagination
-        initialState={{
-          pagination: {
-            page: 0,
-          },
-        }}
+        pagination
         getRowClassName={() => 'row--style'}
         disableSelectionOnClick
       />

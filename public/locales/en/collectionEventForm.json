@@ -1,0 +1,14 @@
+{
+  "title": "New Collection event",
+  "description": "Create a new collection event for statistical program: ",
+  "submit": "Submit",
+  "cancel": "Cancel",
+  "close": "Close",
+  "label": "Label",
+  "descriptionField": "Description",
+  "submitmessage": "Collection event created successfully",
+  "addLanguage": "Add language",
+  "dataCollectionDate": "Data collection date",
+  "modeOfCollection": "Mode of collection",
+  "instrumentReference": "Instrument reference"
+}
