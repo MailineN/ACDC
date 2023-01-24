@@ -1,4 +1,5 @@
 export default interface DataCollection {
+  id: string;
   agency: string;
   statisticalProgram: string;
   programCycle: string;

@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import {
   Typography,
   FormControl,
@@ -28,14 +29,14 @@ const CollectionForm = () => {
   const [label, setLabel] = useState([
     {
       id: 1,
-      language: 'en',
+      language: 'en-IE',
       value: '',
     },
   ]);
   const [description, setDescription] = useState([
     {
       id: 1,
-      language: 'en',
+      language: 'en-IE',
       value: '',
     },
   ]);
@@ -116,6 +117,7 @@ const CollectionForm = () => {
     const today = new Date(now);
 
     const data: DataCollection = {
+      id: uuidv4(),
       agency: 'fr.insee',
       version: 1,
       versionDate: today.toISOString(),
@@ -228,8 +230,8 @@ const CollectionForm = () => {
                   }}
                   notched={true}
                 >
-                  <MenuItem value="fr">🇫🇷</MenuItem>
-                  <MenuItem value="en">🇬🇧</MenuItem>
+                  <MenuItem value="fr-FR">🇫🇷</MenuItem>
+                  <MenuItem value="en-IE">🇬🇧</MenuItem>
                 </Select>
               </Box>
             );
@@ -291,8 +293,8 @@ const CollectionForm = () => {
                   }}
                   notched={true}
                 >
-                  <MenuItem value="fr">🇫🇷</MenuItem>
-                  <MenuItem value="en">🇬🇧</MenuItem>
+                  <MenuItem value="fr-FR">🇫🇷</MenuItem>
+                  <MenuItem value="en-IE">🇬🇧</MenuItem>
                 </Select>
               </Box>
             );

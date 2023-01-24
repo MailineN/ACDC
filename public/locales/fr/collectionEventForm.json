@@ -12,5 +12,6 @@
   "collectionStartDate": "Date de début de collecte",
   "collectionEndDate": "Date de fin de collecte",
   "modeOfCollection": "Mode de collecte",
-  "instrumentReference": "Intrument (?)"
+  "instrumentReference": "Intrument (?)",
+  "addModeCollection": "Ajouter un mode de collecte"
 }

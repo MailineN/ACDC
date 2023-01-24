@@ -16,7 +16,6 @@ function HeaderComponent(props: BoxProps) {
           width: '100%',
           borderBottom: '1px solid',
           borderColor: 'divider',
-          position: 'sticky',
           top: 0,
           zIndex: 1100,
         },

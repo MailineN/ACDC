@@ -1,12 +1,13 @@
-import ModeOfCollection from './modeOfCollection';
 import InstrumentReference from './instrumentReference';
+import TypeOfModeOfCollection from './typeOfModeOfCollection';
 
 export default interface CollectionEvent {
+  id: string;
   agency: string;
   version: number;
-  versionDate: string;
-  label: Map<string, string>;
+  label: any[];
+  description: any[];
   dataCollectionDate: Map<string, string>;
-  modeOfCollection: ModeOfCollection[];
-  instrumentReference: InstrumentReference[];
+  typeOfModeOfCollection: TypeOfModeOfCollection[];
+  instrumentReference: InstrumentReference;
 }

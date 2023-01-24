@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { v4 as uuidv4 } from 'uuid';
 import { DatePicker } from '@mui/x-date-pickers';
 import {
   Typography,
@@ -18,26 +18,57 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { CollectionsOutlined } from '@mui/icons-material';
+import CollectionEvent from '../../../lib/model/collectionEvents';
+import TypeOfModeOfCollection from '../../../lib/model/typeOfModeOfCollection';
+import InstrumentReference from '../../../lib/model/instrumentReference';
+import { formatISO } from 'date-fns';
 const EventForm = () => {
   const { t } = useTranslation(['collectionEventForm']);
   const navigate = useNavigate();
-  const [startDate, setStartDate] = useState<dateFns | null>(null);
-  const [endDate, setEndDate] = useState<dateFns | null>(null);
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [endDate, setEndDate] = useState<Date | null>(new Date());
+  const [modeCollection, setModeCollection] = useState([
+    {
+      id: 1,
+      type: 'CAPI',
+    },
+  ]);
   const [label, setLabel] = useState([
     {
       id: 1,
-      language: 'en',
+      language: 'en-IE',
       value: '',
     },
   ]);
   const [description, setDescription] = useState([
     {
       id: 1,
-      language: 'en',
+      language: 'en-IE',
       value: '',
     },
   ]);
   const [open, setOpen] = useState(false);
+
+  const addModeCollection = () => {
+    const lastModeCollectionId = modeCollection[modeCollection.length - 1].id;
+    return setModeCollection([
+      ...modeCollection,
+      {
+        id: lastModeCollectionId + 1,
+        type: 'CAPI',
+      },
+    ]);
+  };
+
+  const handleModeCollectionChange = (e: any, index: number) => {
+    e.preventDefault();
+    setModeCollection((s) => {
+      const newLabel = s.slice();
+      newLabel[index].type = e.target.value;
+      return newLabel;
+    });
+  };
 
   const addLanguageLabel = () => {
     const lastLabelId = label[label.length - 1].id;
@@ -101,6 +132,7 @@ const EventForm = () => {
   };
   const handleClickOpen = () => {
     setOpen(true);
+    console.log('Start date: ', startDate);
   };
 
   const handleClose = () => {
@@ -110,8 +142,36 @@ const EventForm = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    const now = Date.now();
-    const today = new Date(now);
+    const instrument: InstrumentReference = {
+      id: '493f8b38-1198-4e45-99d2-531ac8a48a48',
+      agency: 'fr.insee',
+      version: 1,
+      typeOfObject: 'Instrument',
+    };
+
+    const modeOfCollection: TypeOfModeOfCollection[] = [];
+    modeCollection.forEach((mode) => {
+      modeOfCollection.push({
+        type: mode.type,
+      });
+    });
+
+    const dates: Map<string, string> = new Map();
+    dates.set('startDate', formatISO(startDate) || '');
+    dates.set('endDate', formatISO(endDate) || '');
+
+    const data: CollectionEvent = {
+      id: uuidv4(),
+      agency: 'fr.insee',
+      version: 1,
+      label: label,
+      description: description,
+      instrumentReference: instrument,
+      typeOfModeOfCollection: modeOfCollection,
+      dataCollectionDate: dates,
+    };
+
+    console.log('Data: ', data);
 
     handleClickOpen();
   };
@@ -158,8 +218,8 @@ const EventForm = () => {
                   }}
                   notched={true}
                 >
-                  <MenuItem value="fr">🇫🇷</MenuItem>
-                  <MenuItem value="en">🇬🇧</MenuItem>
+                  <MenuItem value="fr-FR">🇫🇷</MenuItem>
+                  <MenuItem value="en-IE">🇬🇧</MenuItem>
                 </Select>
               </Box>
             );
@@ -219,8 +279,8 @@ const EventForm = () => {
                   }}
                   notched={true}
                 >
-                  <MenuItem value="fr">🇫🇷</MenuItem>
-                  <MenuItem value="en">🇬🇧</MenuItem>
+                  <MenuItem value="fr-FR">🇫🇷</MenuItem>
+                  <MenuItem value="en-IE">🇬🇧</MenuItem>
                 </Select>
               </Box>
             );
@@ -258,17 +318,14 @@ const EventForm = () => {
             <DatePicker
               label={t('collectionStartDate')}
               value={startDate}
-              onChange={(newValue) => {
-                setStartDate(newValue);
-              }}
+              onChange={(date) => date && setStartDate(date)}
               renderInput={(params) => <TextField {...params} />}
             />
             <DatePicker
               label={t('collectionEndDate')}
               value={endDate}
-              onChange={(newValue) => {
-                setEndDate(newValue);
-              }}
+              minDate={startDate}
+              onChange={(date) => date && setEndDate(date)}
               renderInput={(params) => <TextField {...params} />}
             />
           </Stack>
@@ -285,16 +342,49 @@ const EventForm = () => {
             <Typography variant="h6">{t('modeOfCollection')}:</Typography>
           </Box>
 
+          {modeCollection.map((mode, index) => {
+            return (
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'flex-start',
+                }}
+                key={mode.id}
+              >
+                <Select
+                  color="primary"
+                  labelId="select-program"
+                  label={t('statistical_program')}
+                  displayEmpty
+                  value={mode.type}
+                  onChange={(e) => handleModeCollectionChange(e, index)}
+                  sx={{
+                    '& legend': { display: 'none' },
+                    '& fieldset': { top: 0 },
+                  }}
+                  notched={true}
+                >
+                  <MenuItem value={'CAPI'}>CAPI</MenuItem>
+                  <MenuItem value={'CATI'}>CATI</MenuItem>
+                  <MenuItem value={'CAWI'}>CAWI</MenuItem>
+                  <MenuItem value={'PAPI'}>PAPI</MenuItem>
+                </Select>
+              </Box>
+            );
+          })}
+
           <Box
+            component="form"
+            className="CollectionForm"
             sx={{
-              paddingTop: 2,
               display: 'flex',
               justifyContent: 'flex-start',
-              borderTop: '1px solid',
-              borderColor: 'divider',
             }}
           >
-            <Typography variant="h6">{t('instrumentReference')}:</Typography>
+            <Button variant="outlined" size="small" onClick={addModeCollection}>
+              <Typography>{t('addModeCollection')}</Typography>
+            </Button>
           </Box>
 
           <Box
