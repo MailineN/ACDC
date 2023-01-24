@@ -180,7 +180,7 @@ const EventForm = (props: DataCollectionProps) => {
 
     console.log('Data: ', data);
 
-    updateDataCollection(props.dataCollection?.id, props.dataCollection);
+    updateDataCollection(props.dataCollection);
 
     handleClickOpen();
   };
