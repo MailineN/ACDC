@@ -20,7 +20,7 @@ const CreateCollectionEvent = () => {
         {t('title')}
       </Typography>
       <Typography variant="subtitle1">{t('description')}</Typography>
-      <EventForm dataCollection={dataCollection} />
+      <EventForm DataCollectionApi={dataCollection} />
     </Main>
   );
 };

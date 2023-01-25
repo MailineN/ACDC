@@ -1,0 +1,13 @@
+{
+  "title": "New Data Collection",
+  "description": "Create a new data collection by filling the form below.",
+  "submit": "Submit",
+  "cancel": "Cancel",
+  "close": "Close",
+  "statistical_program": "Statistical Program",
+  "statistical_cycle": "cycle",
+  "label": "Label",
+  "descriptionField": "Description",
+  "submitmessage": "Data collection created successfully",
+  "addLanguage": "Add language"
+}
