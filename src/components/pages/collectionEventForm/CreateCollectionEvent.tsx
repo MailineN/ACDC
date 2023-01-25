@@ -3,14 +3,14 @@ import { Button, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import Main from '../../shared/layout/Main';
 import EventForm from './CollectionEventForm';
-import DataCollection from '../../../lib/model/dataCollection';
+import DataCollectionApi from '../../../lib/model/dataCollectionApi';
 import { getDataCollection } from '../../../lib/api/remote/dataCollectionApi';
 import { useParams } from 'react-router-dom';
 
 const CreateCollectionEvent = () => {
   const { t } = useTranslation(['collectionEventForm']);
   const id = useParams<string>();
-  const [dataCollection, setDataCollection] = useState<DataCollection>();
+  const [dataCollection, setDataCollection] = useState<DataCollectionApi>();
   useEffect(() => {
     getDataCollection(id).then((r) => setDataCollection(r));
   }, []);

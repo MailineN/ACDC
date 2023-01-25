@@ -22,11 +22,11 @@ import CollectionEvent from '../../../lib/model/collectionEvents';
 import TypeOfModeOfCollection from '../../../lib/model/typeOfModeOfCollection';
 import InstrumentReference from '../../../lib/model/instrumentReference';
 import { formatISO } from 'date-fns';
-import DataCollection from '../../../lib/model/dataCollection';
 import { updateDataCollection } from '../../../lib/api/remote/dataCollectionApi';
+import DataCollectionApi from '../../../lib/model/dataCollectionApi';
 
 interface DataCollectionProps {
-  dataCollection?: DataCollection;
+  DataCollectionApi?: DataCollectionApi;
 }
 const EventForm = (props: DataCollectionProps) => {
   const { t } = useTranslation(['collectionEventForm']);
@@ -164,7 +164,6 @@ const EventForm = (props: DataCollectionProps) => {
     const dates: Map<string, string> = new Map();
     dates.set('startDate', formatISO(startDate) || '');
     dates.set('endDate', formatISO(endDate) || '');
-
     const data: CollectionEvent = {
       id: uuidv4(),
       agency: 'fr.insee',
@@ -175,12 +174,16 @@ const EventForm = (props: DataCollectionProps) => {
       typeOfModeOfCollection: modeOfCollection,
       dataCollectionDate: dates,
     };
+    props.DataCollectionApi?.json.collectionEvents.push(data);
 
-    props.dataCollection?.collectionEvents.push(data);
+    const updatedDataCollection: DataCollectionApi = {
+      id: props.DataCollectionApi?.id,
+      json: props.DataCollectionApi.json,
+    };
 
     console.log('Data: ', data);
 
-    updateDataCollection(props.dataCollection);
+    updateDataCollection(updatedDataCollection);
 
     handleClickOpen();
   };

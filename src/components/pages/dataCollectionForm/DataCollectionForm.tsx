@@ -19,6 +19,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import DataCollection from '../../../lib/model/dataCollection';
 import { createDataCollection } from '../../../lib/api/remote/dataCollectionApi';
+import DataCollectionApi from '../../../lib/model/dataCollectionApi';
 
 const CollectionForm = () => {
   const { t } = useTranslation(['dataCollectionForm']);
@@ -115,9 +116,10 @@ const CollectionForm = () => {
     e.preventDefault();
     const now = Date.now();
     const today = new Date(now);
+    const id = uuidv4();
 
     const data: DataCollection = {
-      id: uuidv4(),
+      id: id,
       agency: 'fr.insee',
       version: 1,
       versionDate: today.toISOString(),
@@ -127,7 +129,12 @@ const CollectionForm = () => {
       description: description,
       collectionEvents: [],
     };
-    createDataCollection(data);
+
+    const dataCollection: DataCollectionApi = {
+      id: id,
+      json: data,
+    };
+    createDataCollection(dataCollection);
     handleClickOpen();
   };
 
