@@ -1,5 +1,7 @@
-FROM nginx
-COPY build /usr/share/nginx/html
-RUN rm etc/nginx/conf.d/default.conf
-COPY nginx/nginx.conf etc/nginx/conf.d/
-CMD ["nginx", "-g", "daemon off;"]
+FROM node
+WORKDIR /app
+COPY package.json .
+RUN npm i
+COPY . .
+EXPOSE 3000
+CMD ["npm", "run", "dev"]
