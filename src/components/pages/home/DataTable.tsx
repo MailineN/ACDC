@@ -36,7 +36,7 @@ const DataGridHomePage = (props: DataGridHomePageProps) => {
       description: t('statisticalProgram').toString(),
     },
     {
-      field: 'date',
+      field: 'versionDate',
       headerName: t('lastUpdate').toString(),
       headerClassName: 'columns--header',
       flex: 0.2,
