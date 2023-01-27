@@ -4,6 +4,7 @@
   "submit": "Envoyer",
   "cancel": "Annuler",
   "close": "Fermer",
+  "name": "Nom",
   "label": "Label",
   "descriptionField": "Description",
   "submitmessage": "Lot créé avec succès",

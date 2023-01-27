@@ -5,8 +5,9 @@ export default interface CollectionEvent {
   id: string;
   agency: string;
   version: number;
-  label: any[];
-  description: any[];
+  collectionEventName: Record<'fr-FR' | 'en-IE' | string, string>;
+  label: Record<'fr-FR' | 'en-IE' | string, string>;
+  description: Record<'fr-FR' | 'en-IE' | string, string>;
   dataCollectionDate: Map<string, string>;
   typeOfModeOfCollection: TypeOfModeOfCollection[];
   instrumentReference: InstrumentReference;

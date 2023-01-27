@@ -29,6 +29,7 @@ interface DataCollectionProps {
   DataCollectionApi?: DataCollectionApi;
 }
 const EventForm = (props: DataCollectionProps) => {
+  //TODO: Refactor tout ça pour que ce soit plus propre
   const { t } = useTranslation(['collectionEventForm']);
   const navigate = useNavigate();
   const [startDate, setStartDate] = useState<Date | null>(new Date());
@@ -39,14 +40,21 @@ const EventForm = (props: DataCollectionProps) => {
       type: 'CAPI',
     },
   ]);
-  const [label, setLabel] = useState([
+  const [collectionEventNameArray, setCollectionEventNameArray] = useState([
     {
       id: 1,
       language: 'en-IE',
       value: '',
     },
   ]);
-  const [description, setDescription] = useState([
+  const [labelArray, setLabelArray] = useState([
+    {
+      id: 1,
+      language: 'en-IE',
+      value: '',
+    },
+  ]);
+  const [descriptionArray, setDescriptionArray] = useState([
     {
       id: 1,
       language: 'en-IE',
@@ -75,10 +83,41 @@ const EventForm = (props: DataCollectionProps) => {
     });
   };
 
+  const addLanguageName = () => {
+    const lastNameId =
+      collectionEventNameArray[collectionEventNameArray.length - 1].id;
+    return setCollectionEventNameArray([
+      ...collectionEventNameArray,
+      {
+        id: lastNameId + 1,
+        language: 'en',
+        value: '',
+      },
+    ]);
+  };
+  const handleNameChange = (e: any) => {
+    e.preventDefault();
+    const index = e.target.id;
+    setLabelArray((s) => {
+      const newName = s.slice();
+      newName[index].value = e.target.value;
+      return newName;
+    });
+  };
+
+  const handleNameLanguageChange = (e: any, index: number) => {
+    e.preventDefault();
+    setLabelArray((s) => {
+      const newName = s.slice();
+      newName[index].language = e.target.value;
+      return newName;
+    });
+  };
+
   const addLanguageLabel = () => {
-    const lastLabelId = label[label.length - 1].id;
-    return setLabel([
-      ...label,
+    const lastLabelId = labelArray[labelArray.length - 1].id;
+    return setLabelArray([
+      ...labelArray,
       {
         id: lastLabelId + 1,
         language: 'en',
@@ -89,7 +128,7 @@ const EventForm = (props: DataCollectionProps) => {
   const handleLabelChange = (e: any) => {
     e.preventDefault();
     const index = e.target.id;
-    setLabel((s) => {
+    setLabelArray((s) => {
       const newLabel = s.slice();
       newLabel[index].value = e.target.value;
       return newLabel;
@@ -98,7 +137,7 @@ const EventForm = (props: DataCollectionProps) => {
 
   const handleLabelLanguageChange = (e: any, index: number) => {
     e.preventDefault();
-    setLabel((s) => {
+    setLabelArray((s) => {
       const newLabel = s.slice();
       newLabel[index].language = e.target.value;
       return newLabel;
@@ -106,9 +145,9 @@ const EventForm = (props: DataCollectionProps) => {
   };
 
   const addLanguageDescription = () => {
-    const lastDescriptionId = description[description.length - 1].id;
-    return setDescription([
-      ...description,
+    const lastDescriptionId = descriptionArray[descriptionArray.length - 1].id;
+    return setDescriptionArray([
+      ...descriptionArray,
       {
         id: lastDescriptionId + 1,
         language: 'en',
@@ -119,7 +158,7 @@ const EventForm = (props: DataCollectionProps) => {
 
   const handleDescriptionChange = (e: any, index: number) => {
     e.preventDefault();
-    setDescription((s) => {
+    setDescriptionArray((s) => {
       const newDescription = s.slice();
       newDescription[index].value = e.target.value;
       return newDescription;
@@ -129,7 +168,7 @@ const EventForm = (props: DataCollectionProps) => {
   const handleDescriptionLanguageChange = (e: any) => {
     e.preventDefault();
     const index = e.target.id;
-    setDescription((s) => {
+    setDescriptionArray((s) => {
       const newDescription = s.slice();
       newDescription[index].language = e.target.value;
       return newDescription;
@@ -160,6 +199,32 @@ const EventForm = (props: DataCollectionProps) => {
         type: mode.type,
       });
     });
+    var collectionEventName: Record<'fr-FR' | 'en-IE' | string, string> =
+      collectionEventNameArray.reduce(function (
+        map: Record<'fr-FR' | 'en-IE' | string, string>,
+        obj
+      ) {
+        map[obj.language] = obj.value;
+        return map;
+      },
+      {});
+    var label: Record<'fr-FR' | 'en-IE' | string, string> = labelArray.reduce(
+      function (map: Record<'fr-FR' | 'en-IE' | string, string>, obj) {
+        map[obj.language] = obj.value;
+        return map;
+      },
+      {}
+    );
+
+    var description: Record<'fr-FR' | 'en-IE' | string, string> =
+      descriptionArray.reduce(function (
+        map: Record<'fr-FR' | 'en-IE' | string, string>,
+        obj
+      ) {
+        map[obj.language] = obj.value;
+        return map;
+      },
+      {});
 
     const dates: Map<string, string> = new Map();
     dates.set('startDate', formatISO(startDate) || '');
@@ -168,6 +233,7 @@ const EventForm = (props: DataCollectionProps) => {
       id: uuidv4(),
       agency: 'fr.insee',
       version: 1,
+      collectionEventName: collectionEventName,
       label: label,
       description: description,
       instrumentReference: instrument,
@@ -198,9 +264,68 @@ const EventForm = (props: DataCollectionProps) => {
               justifyContent: 'flex-start',
             }}
           >
+            <Typography variant="h6">{t('name')}:</Typography>
+          </Box>
+          {collectionEventNameArray.map((name, index) => {
+            return (
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'flex-start',
+                }}
+                key={name.id}
+              >
+                <TextField
+                  required
+                  size="small"
+                  label={t('label')}
+                  value={name.value}
+                  sx={{ marginRight: 2, width: '100%' }}
+                  onChange={handleNameChange}
+                  id={index.toString()}
+                />
+                <Select
+                  color="primary"
+                  value={name.language}
+                  onChange={(e) => handleNameLanguageChange(e, index)}
+                  id={index.toString()}
+                  sx={{
+                    '& legend': { display: 'none' },
+                    '& fieldset': { top: 0 },
+                  }}
+                  notched={true}
+                >
+                  <MenuItem value="fr-FR">🇫🇷</MenuItem>
+                  <MenuItem value="en-IE">🇬🇧</MenuItem>
+                </Select>
+              </Box>
+            );
+          })}
+
+          <Box
+            component="form"
+            className="CollectionForm"
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-start',
+            }}
+          >
+            <Button variant="outlined" size="small" onClick={addLanguageName}>
+              <Typography>{t('addLanguage')}</Typography>
+            </Button>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-start',
+              borderTop: '1px solid',
+              borderColor: 'divider',
+            }}
+          >
             <Typography variant="h6">{t('label')}:</Typography>
           </Box>
-          {label.map((label, index) => {
+          {labelArray.map((label, index) => {
             return (
               <Box
                 sx={{
@@ -262,7 +387,7 @@ const EventForm = (props: DataCollectionProps) => {
             <Typography variant="h6">{t('descriptionField')}:</Typography>
           </Box>
 
-          {description.map((description, index) => {
+          {descriptionArray.map((description, index) => {
             return (
               <Box
                 sx={{

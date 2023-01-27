@@ -139,8 +139,6 @@ const CollectionForm = () => {
       agency: 'fr.insee',
       version: 1,
       versionDate: today.toISOString(),
-      statisticalProgram: statisticalProgram,
-      programCycle: statisticalCycle,
       label: label,
       description: description,
       collectionEvents: [],
@@ -164,62 +162,7 @@ const CollectionForm = () => {
             sx={{
               display: 'flex',
               justifyContent: 'flex-start',
-            }}
-          >
-            <Typography variant="h6">
-              {t('statistical_program')} & {t('statistical_cycle')}:
-            </Typography>
-          </Box>
-
-          <Box
-            component="form"
-            className="CollectionForm"
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'flex-start',
-            }}
-          >
-            <Select
-              color="primary"
-              labelId="select-program"
-              label={t('statistical_program')}
-              displayEmpty
-              value={statisticalProgram}
-              onChange={(event) => setStatisticalProgram(event.target.value)}
-              sx={{
-                '& legend': { display: 'none' },
-                '& fieldset': { top: 0 },
-                marginRight: 2,
-              }}
-              notched={true}
-            >
-              <MenuItem value={'EEC'}>Enquête Emploi En Continu</MenuItem>
-              <MenuItem value={'Option1'}>Other1</MenuItem>
-              <MenuItem value={'Option2'}>Other2</MenuItem>
-            </Select>
-            <Select
-              color="primary"
-              value={statisticalCycle}
-              displayEmpty
-              onChange={(event) => setStatisticalCycle(event.target.value)}
-              notched={true}
-              sx={{ '& legend': { display: 'none' }, '& fieldset': { top: 0 } }}
-            >
-              <MenuItem value={'2023'}>2023</MenuItem>
-              <MenuItem value={'2022'}>2022</MenuItem>
-              <MenuItem value={'2021'}>2021</MenuItem>
-            </Select>
-          </Box>
-          <Box
-            component="form"
-            className="CollectionForm"
-            sx={{
-              display: 'flex',
-              justifyContent: 'flex-start',
               paddingTop: 2,
-              borderTop: '1px solid',
-              borderColor: 'divider',
             }}
           >
             <Typography variant="h6">{t('label')}:</Typography>

@@ -2,8 +2,6 @@ import CollectionEvent from './collectionEvents';
 export interface DataCollection {
   id: string;
   agency: string;
-  statisticalProgram: string;
-  programCycle: string;
   version: number;
   versionDate: string;
   label: Record<'fr-FR' | 'en-IE' | string, string>;
