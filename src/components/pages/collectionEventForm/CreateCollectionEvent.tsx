@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Main from '../../shared/layout/Main';
 import EventForm from './CollectionEventForm';
 import DataCollectionApi from '../../../lib/model/dataCollectionApi';
-import { getDataCollection } from '../../../lib/api/remote/dataCollectionApi';
+import { getDataCollection } from '../../../lib/api/remote/dataCollectionApiFetch';
 import { useParams } from 'react-router-dom';
 
 const CreateCollectionEvent = () => {

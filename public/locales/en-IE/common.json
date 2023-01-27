@@ -1,5 +1,6 @@
 {
   "table": "Table",
+  "id": "Id",
   "field": "Field",
   "filter": "Filter",
   "page": "Page",

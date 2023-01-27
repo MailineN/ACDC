@@ -29,6 +29,13 @@ const DataGridHomePage = (props: DataGridHomePageProps) => {
 
   const columns: GridColDef[] = [
     {
+      field: 'id',
+      headerName: t('id').toString(),
+      headerClassName: 'columns--header',
+      flex: 0.3,
+      description: t('id').toString(),
+    },
+    {
       field: 'label',
       headerName: t('statisticalProgram').toString(),
       headerClassName: 'columns--header',

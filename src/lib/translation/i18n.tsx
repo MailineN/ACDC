@@ -13,9 +13,16 @@ i18next
       loadPath: '/locales/{{lng}}/{{ns}}.json',
     },
     // Remove resources from here
-    fallbackLng: 'en',
+    fallbackLng: 'en-IE',
 
-    ns: ['common', 'home', 'header', 'dataCollectionForm'],
+    ns: [
+      'common',
+      'home',
+      'header',
+      'dataCollectionForm',
+      'collectionEventForm',
+      'dataCollectionDetails',
+    ],
 
     interpolation: {
       escapeValue: false,

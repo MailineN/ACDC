@@ -1,5 +1,5 @@
 import DataCollectionApi from '../../model/dataCollectionApi';
-import DataCollection from '../../model/dataCollection';
+import { DataCollection } from '../../model/dataCollection';
 import { Params } from 'react-router-dom';
 
 export function getDataCollection(
@@ -11,10 +11,10 @@ export function getDataCollection(
 }
 
 export async function getAllDataCollections(): Promise<DataCollectionApi[]> {
-  const res = await fetch(
+  const response = await fetch(
     import.meta.env.VITE_API_BASE_URL + 'api/data-collections'
   );
-  return res.json();
+  return response.json();
 }
 
 export function createDataCollection(

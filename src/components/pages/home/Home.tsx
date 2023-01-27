@@ -5,30 +5,23 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Typography } from '@mui/material';
 import Main from '../../shared/layout/Main';
 import DataGridHomePage from './DataTable';
-import { dataCollectionApiMock } from '../../../lib/api/mock/dataCollectionApiMock';
-import DataCollection from '../../../lib/model/dataCollection';
+import {
+  DataCollection,
+  DataCollectionRow,
+} from '../../../lib/model/dataCollection';
 import DataCollectionApi from '../../../lib/model/dataCollectionApi';
-import { getDataCollectionRows } from '../../../lib/api/remote/dataCollectionApi';
-import { da } from 'date-fns/locale';
+import { getAllDataCollections } from '../../../lib/api/remote/dataCollectionApiFetch';
 const Home = () => {
-  const { t } = useTranslation(['home']);
+  const { t, i18n } = useTranslation(['home']);
   const navigate = useNavigate();
 
   const handleClick = () => {
     navigate('/new');
   };
 
-  const getRows = async () => {
-    const rows: any[] = [];
-    const response = await fetch(
-      import.meta.env.VITE_API_BASE_URL + 'api/data-collections'
-    );
-    return response.json();
-  };
-
   const { data, error, isLoading, isSuccess } = useQuery(
     ['allDataCollection'],
-    getRows
+    getAllDataCollections
   );
 
   if (error)
@@ -56,16 +49,27 @@ const Home = () => {
     );
 
   if (isSuccess) {
-    const rows: any[] = [];
+    const rows: DataCollectionRow[] = [];
     data.forEach((dataCollectionApi: DataCollectionApi) => {
       const dataCollection: DataCollection = dataCollectionApi.json;
+      console.log('Retrieved data : ', dataCollection);
+      const labelData = () => {
+        switch (i18n.language) {
+          case 'fr-FR':
+            return dataCollection.label['fr-FR'];
+          case 'en-IE':
+            return dataCollection.label['en-IE'];
+          default:
+            return dataCollection.label['en-IE'];
+        }
+      };
       rows.push({
-        id: dataCollection.id,
-        label: dataCollection.label,
-        version: dataCollection.version,
-        versionDate: dataCollection.versionDate,
+        ...dataCollection,
+        label: labelData(),
+
         action: dataCollection,
       });
+
       console.log('Retrieved rows data : ', rows);
     });
     return (

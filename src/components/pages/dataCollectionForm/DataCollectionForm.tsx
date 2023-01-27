@@ -17,8 +17,8 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import DataCollection from '../../../lib/model/dataCollection';
-import { createDataCollection } from '../../../lib/api/remote/dataCollectionApi';
+import { DataCollection } from '../../../lib/model/dataCollection';
+import { createDataCollection } from '../../../lib/api/remote/dataCollectionApiFetch';
 import DataCollectionApi from '../../../lib/model/dataCollectionApi';
 
 const CollectionForm = () => {
@@ -27,14 +27,14 @@ const CollectionForm = () => {
 
   const [statisticalProgram, setStatisticalProgram] = useState('EEC');
   const [statisticalCycle, setStatisticalCycle] = useState('2023');
-  const [label, setLabel] = useState([
+  const [labelArray, setLabelArray] = useState([
     {
       id: 1,
       language: 'en-IE',
       value: '',
     },
   ]);
-  const [description, setDescription] = useState([
+  const [descriptionArray, setDescriptionArray] = useState([
     {
       id: 1,
       language: 'en-IE',
@@ -44,9 +44,9 @@ const CollectionForm = () => {
   const [open, setOpen] = useState(false);
 
   const addLanguageLabel = () => {
-    const lastLabelId = label[label.length - 1].id;
-    return setLabel([
-      ...label,
+    const lastLabelId = labelArray[labelArray.length - 1].id;
+    return setLabelArray([
+      ...labelArray,
       {
         id: lastLabelId + 1,
         language: 'en',
@@ -57,7 +57,7 @@ const CollectionForm = () => {
   const handleLabelChange = (e: any) => {
     e.preventDefault();
     const index = e.target.id;
-    setLabel((s) => {
+    setLabelArray((s) => {
       const newLabel = s.slice();
       newLabel[index].value = e.target.value;
       return newLabel;
@@ -66,7 +66,7 @@ const CollectionForm = () => {
 
   const handleLabelLanguageChange = (e: any, index: number) => {
     e.preventDefault();
-    setLabel((s) => {
+    setLabelArray((s) => {
       const newLabel = s.slice();
       newLabel[index].language = e.target.value;
       return newLabel;
@@ -74,9 +74,9 @@ const CollectionForm = () => {
   };
 
   const addLanguageDescription = () => {
-    const lastDescriptionId = description[description.length - 1].id;
-    return setDescription([
-      ...description,
+    const lastDescriptionId = descriptionArray[descriptionArray.length - 1].id;
+    return setDescriptionArray([
+      ...descriptionArray,
       {
         id: lastDescriptionId + 1,
         language: 'en',
@@ -87,7 +87,7 @@ const CollectionForm = () => {
 
   const handleDescriptionChange = (e: any, index: number) => {
     e.preventDefault();
-    setDescription((s) => {
+    setDescriptionArray((s) => {
       const newDescription = s.slice();
       newDescription[index].value = e.target.value;
       return newDescription;
@@ -97,7 +97,7 @@ const CollectionForm = () => {
   const handleDescriptionLanguageChange = (e: any) => {
     e.preventDefault();
     const index = e.target.id;
-    setDescription((s) => {
+    setDescriptionArray((s) => {
       const newDescription = s.slice();
       newDescription[index].language = e.target.value;
       return newDescription;
@@ -117,6 +117,22 @@ const CollectionForm = () => {
     const now = Date.now();
     const today = new Date(now);
     const id = uuidv4();
+    var label: Record<'fr-FR' | 'en-IE' | string, string> = labelArray.reduce(
+      function (map: Record<'fr-FR' | 'en-IE' | string, string>, obj) {
+        map[obj.language] = obj.value;
+        return map;
+      },
+      {}
+    );
+    var description: Record<'fr-FR' | 'en-IE' | string, string> =
+      descriptionArray.reduce(function (
+        map: Record<'fr-FR' | 'en-IE' | string, string>,
+        obj
+      ) {
+        map[obj.language] = obj.value;
+        return map;
+      },
+      {});
 
     const data: DataCollection = {
       id: id,
@@ -208,7 +224,7 @@ const CollectionForm = () => {
           >
             <Typography variant="h6">{t('label')}:</Typography>
           </Box>
-          {label.map((label, index) => {
+          {labelArray.map((label, index) => {
             return (
               <Box
                 sx={{
@@ -272,7 +288,7 @@ const CollectionForm = () => {
             <Typography variant="h6">{t('descriptionField')}:</Typography>
           </Box>
 
-          {description.map((description, index) => {
+          {descriptionArray.map((description, index) => {
             return (
               <Box
                 sx={{

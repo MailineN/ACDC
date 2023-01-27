@@ -47,10 +47,17 @@ const Header = () => {
           role: 'listbox',
         }}
       >
-        <MenuItem value="fr" onClick={(event) => handleChange(event, 'fr')}>
+        <MenuItem
+          value="fr-FR
+"
+          onClick={(event) => handleChange(event, 'fr-FR')}
+        >
           🇫🇷
         </MenuItem>
-        <MenuItem value="en" onClick={(event) => handleChange(event, 'en')}>
+        <MenuItem
+          value="en-IE"
+          onClick={(event) => handleChange(event, 'en-IE')}
+        >
           🇬🇧
         </MenuItem>
       </Menu>

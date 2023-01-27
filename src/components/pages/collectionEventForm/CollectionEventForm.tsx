@@ -22,7 +22,7 @@ import CollectionEvent from '../../../lib/model/collectionEvents';
 import TypeOfModeOfCollection from '../../../lib/model/typeOfModeOfCollection';
 import InstrumentReference from '../../../lib/model/instrumentReference';
 import { formatISO } from 'date-fns';
-import { updateDataCollection } from '../../../lib/api/remote/dataCollectionApi';
+import { updateDataCollection } from '../../../lib/api/remote/dataCollectionApiFetch';
 import DataCollectionApi from '../../../lib/model/dataCollectionApi';
 
 interface DataCollectionProps {
