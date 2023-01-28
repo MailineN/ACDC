@@ -1,4 +1,5 @@
 import CollectionEvent from './collectionEvents';
+
 export interface DataCollection {
   id: string;
   agency: string;

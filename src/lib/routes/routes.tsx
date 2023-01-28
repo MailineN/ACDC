@@ -4,6 +4,7 @@ import Header from '../../components/shared/header/Header';
 import CreateDataCollection from '../../components/pages/dataCollectionForm/CreateDataCollection';
 import CreateCollectionEvent from '../../components/pages/collectionEventForm/CreateCollectionEvent';
 import DataCollectionDetails from '../../components/pages/dataCollectionDetails/DataCollectionDetails';
+
 const RoutesWebs = () => {
   return (
     <Router>

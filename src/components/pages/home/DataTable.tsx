@@ -1,18 +1,20 @@
+// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
 import {
   GridToolbarContainer,
   DataGrid,
   GridToolbarExport,
   GridToolbarFilterButton,
   GridColDef,
+  GridRenderCellParams,
 } from '@mui/x-data-grid';
 import { Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { FiChevronRight } from 'react-icons/fi';
-import { dataCollectionApiMock } from '../../../lib/api/mock/dataCollectionApiMock';
+import { DataCollectionRow } from '../../../lib/model/dataCollection';
 
 interface DataGridHomePageProps {
-  rows: any;
+  rows: DataCollectionRow[];
   heightTable: number;
 }
 
@@ -58,7 +60,7 @@ const DataGridHomePage = (props: DataGridHomePageProps) => {
       flex: 0.15,
       align: 'center',
       description: t('goToCollection').toString(),
-      renderCell: (params: any) => (
+      renderCell: (params: GridRenderCellParams) => (
         <Link
           to={`/collection/${params.value.id}`}
           style={{ textDecoration: 'none' }}
@@ -90,7 +92,7 @@ const DataGridHomePage = (props: DataGridHomePageProps) => {
         }}
         rows={props.rows}
         columns={columns}
-        //getRowHeight={() => 'auto'}
+        // getRowHeight={() => 'auto'}
         autoPageSize
         pagination
         getRowClassName={() => 'row--style'}

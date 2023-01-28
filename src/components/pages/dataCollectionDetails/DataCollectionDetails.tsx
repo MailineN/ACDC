@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Main from '../../shared/layout/Main';
 import { Typography, Button } from '@mui/material';
+import Main from '../../shared/layout/Main';
 import { DataCollection } from '../../../lib/model/dataCollection';
 
 const DataCollectionDetails = () => {
@@ -12,7 +12,7 @@ const DataCollectionDetails = () => {
 
   const handleClick = () => {
     navigate(`/collection/new/${dataCollection.id}`, {
-      state: { dataCollection: dataCollection },
+      state: { dataCollection },
     });
   };
 

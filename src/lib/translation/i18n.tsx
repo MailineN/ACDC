@@ -12,7 +12,11 @@ i18next
       loadPath: '/locales/{{lng}}/{{ns}}.json',
     },
     // Remove resources from here
-    fallbackLng: 'en-IE',
+    fallbackLng: {
+      'en-IE': ['en-IE'],
+      'fr-FR': ['fr-FR'],
+      default: ['en-IE'],
+    },
 
     interpolation: {
       escapeValue: false,

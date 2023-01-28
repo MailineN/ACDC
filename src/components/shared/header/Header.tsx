@@ -10,7 +10,7 @@ const Header = () => {
   const open = Boolean(anchorEl);
 
   const handleChange = (event: any, lg: string) => {
-    console.log('Select Language: ' + lg);
+    console.log('Select Language: ', lg);
     i18n.changeLanguage(lg);
     setAnchorEl(null);
   };

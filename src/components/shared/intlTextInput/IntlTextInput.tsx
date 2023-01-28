@@ -5,15 +5,16 @@ import {
   MenuItem,
   Button,
   Typography,
+  SelectChangeEvent,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 const IntlTextInput = (props: any) => {
   const { t } = useTranslation(['dataCollectionForm']);
-  const textArray: Record<'id' | 'language' | 'value', string>[] =
-    props.textArray;
+  const { textArray } = props;
   const addTextLabel = () => {
-    const lastTextId = textArray[textArray.length - 1].id;
+    const lastTextId: number = textArray[textArray.length - 1].id;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return props.setTextArray([
       ...textArray,
       {
@@ -24,20 +25,20 @@ const IntlTextInput = (props: any) => {
     ]);
   };
 
-  const handleTextChange = (e: any) => {
+  const handleTextChange = (e: any): void => {
     e.preventDefault();
     const index = e.target.id;
     props.setTextArray((s: any) => {
-      const newText = s.slice();
+      const newText: Record<'id' | 'language' | 'value', string>[] = s.slice();
       newText[index].value = e.target.value;
       return newText;
     });
   };
 
-  const handleTextLanguageChange = (e: any, index: number) => {
+  const handleTextLanguageChange = (e: SelectChangeEvent, index: number) => {
     e.preventDefault();
     props.setTextArray((s: any) => {
-      const newText = s.slice();
+      const newText: Record<'id' | 'language' | 'value', string>[] = s.slice();
       newText[index].language = e.target.value;
       return newText;
     });
@@ -45,42 +46,44 @@ const IntlTextInput = (props: any) => {
 
   return (
     <>
-      {textArray.map((label, index) => {
-        return (
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'flex-start',
-            }}
-            key={label.id}
-          >
-            <TextField
-              required
-              size="small"
-              label={t('label')}
-              value={label.value}
-              sx={{ marginRight: 2, width: '100%' }}
-              onChange={handleTextChange}
-              id={index.toString()}
-            />
-            <Select
-              color="primary"
-              value={label.language}
-              onChange={(e) => handleTextLanguageChange(e, index)}
-              id={index.toString()}
+      {textArray.map(
+        (label: Record<'id' | 'language' | 'value', string>, index: number) => {
+          return (
+            <Box
               sx={{
-                '& legend': { display: 'none' },
-                '& fieldset': { top: 0 },
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'flex-start',
               }}
-              notched={true}
+              key={label.id}
             >
-              <MenuItem value="fr-FR">🇫🇷</MenuItem>
-              <MenuItem value="en-IE">🇬🇧</MenuItem>
-            </Select>
-          </Box>
-        );
-      })}
+              <TextField
+                required
+                size="small"
+                label={t('label')}
+                value={label.value}
+                sx={{ marginRight: 2, width: '100%' }}
+                onChange={handleTextChange}
+                id={index.toString()}
+              />
+              <Select
+                color="primary"
+                value={label.language}
+                onChange={(e) => handleTextLanguageChange(e, index)}
+                id={index.toString()}
+                sx={{
+                  '& legend': { display: 'none' },
+                  '& fieldset': { top: 0 },
+                }}
+                notched
+              >
+                <MenuItem value="fr-FR">🇫🇷</MenuItem>
+                <MenuItem value="en-IE">🇬🇧</MenuItem>
+              </Select>
+            </Box>
+          );
+        }
+      )}
 
       <Box
         component="form"

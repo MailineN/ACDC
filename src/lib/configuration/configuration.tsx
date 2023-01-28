@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 const nameAppConfigFile = process.env.REACT_APP_NAME_APP_CONFIG_FILE
   ? process.env.REACT_APP_NAME_APP_CONFIG_FILE
   : 'configuration.json';

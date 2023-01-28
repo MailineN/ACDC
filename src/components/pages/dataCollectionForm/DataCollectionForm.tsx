@@ -25,7 +25,7 @@ const CollectionForm = () => {
   const { t } = useTranslation(['dataCollectionForm']);
   const navigate = useNavigate();
 
-  const { isLoading, isError, isSuccess, error, mutate } =
+  const { isLoading, isError, isSuccess, mutate } =
     useMutation(createDataCollection);
   const [labelArray, setLabelArray] = useState([
     {
@@ -52,40 +52,39 @@ const CollectionForm = () => {
     navigate('/');
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.MouseEvent) => {
     e.preventDefault();
     const now = Date.now();
     const today = new Date(now);
     const id = uuidv4();
-    let label: Record<'fr-FR' | 'en-IE' | string, string> = labelArray.reduce(
-      function (map: Record<'fr-FR' | 'en-IE' | string, string>, obj) {
+    const label: Record<'fr-FR' | 'en-IE' | string, string> = labelArray.reduce(
+      (map: Record<'fr-FR' | 'en-IE' | string, string>, obj) => {
         map[obj.language] = obj.value;
         return map;
       },
       {}
     );
-    let description: Record<'fr-FR' | 'en-IE' | string, string> =
-      descriptionArray.reduce(function (
-        map: Record<'fr-FR' | 'en-IE' | string, string>,
-        obj
-      ) {
-        map[obj.language] = obj.value;
-        return map;
-      },
-      {});
+    const description: Record<'fr-FR' | 'en-IE' | string, string> =
+      descriptionArray.reduce(
+        (map: Record<'fr-FR' | 'en-IE' | string, string>, obj) => {
+          map[obj.language] = obj.value;
+          return map;
+        },
+        {}
+      );
 
     const data: DataCollection = {
-      id: id,
+      id,
       agency: 'fr.insee',
       version: 1,
       versionDate: today.toISOString(),
-      label: label,
-      description: description,
+      label,
+      description,
       collectionEvents: [],
     };
 
     const dataCollection: DataCollectionApi = {
-      id: id,
+      id,
       json: data,
     };
     mutate(dataCollection);

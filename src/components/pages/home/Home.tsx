@@ -10,6 +10,7 @@ import {
 } from '../../../lib/model/dataCollection';
 import DataCollectionApi from '../../../lib/model/dataCollectionApi';
 import { getAllDataCollections } from '../../../lib/api/remote/dataCollectionApiFetch';
+
 const Home = () => {
   const { t, i18n } = useTranslation(['home']);
   const navigate = useNavigate();
@@ -85,7 +86,7 @@ const Home = () => {
     );
   }
 
-  //TODO: Responsive table height
+  // TODO: Responsive table height
   return (
     <Main>
       <Typography variant="h2" fontWeight="xl">

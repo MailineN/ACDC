@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { DatePicker } from '@mui/x-date-pickers';
+import { formatISO } from 'date-fns';
 import {
   Typography,
   FormControl,
@@ -19,12 +20,13 @@ import {
   MenuItem,
   Box,
   DialogTitle,
+  SelectChangeEvent,
 } from '@mui/material';
 import IntlTextInput from '../../shared/intlTextInput/IntlTextInput';
 import CollectionEvent from '../../../lib/model/collectionEvents';
 import TypeOfModeOfCollection from '../../../lib/model/typeOfModeOfCollection';
 import InstrumentReference from '../../../lib/model/instrumentReference';
-import { formatISO } from 'date-fns';
+
 import { updateDataCollection } from '../../../lib/api/remote/dataCollectionApiFetch';
 import DataCollectionApi from '../../../lib/model/dataCollectionApi';
 
@@ -32,10 +34,10 @@ interface DataCollectionProps {
   DataCollectionApi?: DataCollectionApi;
 }
 const EventForm = (props: DataCollectionProps) => {
-  //TODO: Refactor tout ça pour que ce soit plus propre
+  // TODO: Refactor tout ça pour que ce soit plus propre
   const { t } = useTranslation(['collectionEventForm']);
   const navigate = useNavigate();
-  const { isLoading, isError, isSuccess, error, mutate } =
+  const { isLoading, isError, isSuccess, mutate } =
     useMutation(updateDataCollection);
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(new Date());
@@ -79,7 +81,7 @@ const EventForm = (props: DataCollectionProps) => {
     ]);
   };
 
-  const handleModeCollectionChange = (e: any, index: number) => {
+  const handleModeCollectionChange = (e: SelectChangeEvent, index: number) => {
     e.preventDefault();
     setModeCollection((s) => {
       const newLabel = s.slice();
@@ -98,7 +100,7 @@ const EventForm = (props: DataCollectionProps) => {
     navigate('/');
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.MouseEvent) => {
     e.preventDefault();
     const instrument: InstrumentReference = {
       id: '493f8b38-1198-4e45-99d2-531ac8a48a48',
@@ -113,32 +115,30 @@ const EventForm = (props: DataCollectionProps) => {
         type: mode.type,
       });
     });
-    let collectionEventName: Record<'fr-FR' | 'en-IE' | string, string> =
-      collectionEventNameArray.reduce(function (
-        map: Record<'fr-FR' | 'en-IE' | string, string>,
-        obj
-      ) {
-        map[obj.language] = obj.value;
-        return map;
-      },
-      {});
-    let label: Record<'fr-FR' | 'en-IE' | string, string> = labelArray.reduce(
-      function (map: Record<'fr-FR' | 'en-IE' | string, string>, obj) {
+    const collectionEventName: Record<'fr-FR' | 'en-IE' | string, string> =
+      collectionEventNameArray.reduce(
+        (map: Record<'fr-FR' | 'en-IE' | string, string>, obj) => {
+          map[obj.language] = obj.value;
+          return map;
+        },
+        {}
+      );
+    const label: Record<'fr-FR' | 'en-IE' | string, string> = labelArray.reduce(
+      (map: Record<'fr-FR' | 'en-IE' | string, string>, obj) => {
         map[obj.language] = obj.value;
         return map;
       },
       {}
     );
 
-    let description: Record<'fr-FR' | 'en-IE' | string, string> =
-      descriptionArray.reduce(function (
-        map: Record<'fr-FR' | 'en-IE' | string, string>,
-        obj
-      ) {
-        map[obj.language] = obj.value;
-        return map;
-      },
-      {});
+    const description: Record<'fr-FR' | 'en-IE' | string, string> =
+      descriptionArray.reduce(
+        (map: Record<'fr-FR' | 'en-IE' | string, string>, obj) => {
+          map[obj.language] = obj.value;
+          return map;
+        },
+        {}
+      );
 
     const dates: Map<string, string> = new Map();
     dates.set('startDate', formatISO(startDate) || '');
@@ -147,9 +147,9 @@ const EventForm = (props: DataCollectionProps) => {
       id: uuidv4(),
       agency: 'fr.insee',
       version: 1,
-      collectionEventName: collectionEventName,
-      label: label,
-      description: description,
+      collectionEventName,
+      label,
+      description,
       instrumentReference: instrument,
       typeOfModeOfCollection: modeOfCollection,
       dataCollectionDate: dates,
@@ -275,12 +275,12 @@ const EventForm = (props: DataCollectionProps) => {
                     '& legend': { display: 'none' },
                     '& fieldset': { top: 0 },
                   }}
-                  notched={true}
+                  notched
                 >
-                  <MenuItem value={'CAPI'}>CAPI</MenuItem>
-                  <MenuItem value={'CATI'}>CATI</MenuItem>
-                  <MenuItem value={'CAWI'}>CAWI</MenuItem>
-                  <MenuItem value={'PAPI'}>PAPI</MenuItem>
+                  <MenuItem value="CAPI">CAPI</MenuItem>
+                  <MenuItem value="CATI">CATI</MenuItem>
+                  <MenuItem value="CAWI">CAWI</MenuItem>
+                  <MenuItem value="PAPI">PAPI</MenuItem>
                 </Select>
               </Box>
             );
