@@ -1,4 +1,4 @@
-export const dataCollectionApiMock = [
+const dataCollectionApiMock = [
   {
     id: '1',
     label: 'Enquête Emploi en continu',
@@ -7,3 +7,5 @@ export const dataCollectionApiMock = [
     url: '',
   },
 ];
+
+export default dataCollectionApiMock;

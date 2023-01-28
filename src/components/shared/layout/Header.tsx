@@ -1,6 +1,6 @@
 import { Box, BoxProps } from '@mui/material';
 
-function HeaderComponent(props: BoxProps) {
+const HeaderComponent = (props: BoxProps) => {
   return (
     <Box
       component="header"
@@ -23,6 +23,6 @@ function HeaderComponent(props: BoxProps) {
       ]}
     />
   );
-}
+};
 
 export default HeaderComponent;

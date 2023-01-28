@@ -2,7 +2,7 @@
 const nameAppConfigFile = process.env.REACT_APP_NAME_APP_CONFIG_FILE
   ? process.env.REACT_APP_NAME_APP_CONFIG_FILE
   : 'configuration.json';
-const getConfigFile = async (): Promise<any> => {
+const getConfigFile = async (): Promise<unknown> => {
   try {
     const config = await fetch(nameAppConfigFile, {
       headers: {

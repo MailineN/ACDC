@@ -6,5 +6,6 @@
   "showDetails": "Show Details",
   "delete": "Delete",
   "label": "Label",
-  "collectionEvent": "Collection Event"
+  "collectionEvent": "Collection Event",
+  "createButton": "New Collection Event"
 }

@@ -1,5 +1,6 @@
 {
   "table": "Tableau",
+  "id": "Id",
   "field": "Champ",
   "filter": "Filtre",
   "page": "Page",

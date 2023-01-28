@@ -8,7 +8,7 @@ import RoutesWebs from './lib/routes/routes';
 
 const queryClient = new QueryClient();
 
-function App() {
+const App = () => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <QueryClientProvider client={queryClient}>
@@ -23,6 +23,6 @@ function App() {
       </QueryClientProvider>
     </LocalizationProvider>
   );
-}
+};
 
 export default App;

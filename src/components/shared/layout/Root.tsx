@@ -1,6 +1,6 @@
 import { Box, BoxProps } from '@mui/material';
 
-function Root(props: BoxProps) {
+const Root = (props: BoxProps) => {
   return (
     <Box
       {...props}
@@ -13,6 +13,6 @@ function Root(props: BoxProps) {
       ]}
     />
   );
-}
+};
 
 export default Root;

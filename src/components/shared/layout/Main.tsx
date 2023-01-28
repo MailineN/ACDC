@@ -1,6 +1,6 @@
 import { Box, BoxProps } from '@mui/material';
 
-function Main(props: BoxProps) {
+const Main = (props: BoxProps) => {
   return (
     <Box
       component="main"
@@ -9,5 +9,5 @@ function Main(props: BoxProps) {
       sx={[{ p: 2 }, ...(Array.isArray(props.sx) ? props.sx : [props.sx])]}
     />
   );
-}
+};
 export default Main;

@@ -6,5 +6,6 @@
   "showDetails": "Détails",
   "delete": "Supprimer",
   "label": "Label",
-  "collectionEvent": "Lot"
+  "collectionEvent": "Lot",
+  "createButton": "Nouveau Lot"
 }
