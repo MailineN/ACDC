@@ -20,6 +20,7 @@ import { useNavigate } from 'react-router-dom';
 import { DataCollection } from '../../../lib/model/dataCollection';
 import { createDataCollection } from '../../../lib/api/remote/dataCollectionApiFetch';
 import DataCollectionApi from '../../../lib/model/dataCollectionApi';
+import IntlTextInput from '../../shared/intlTextInput/IntlTextInput';
 
 const CollectionForm = () => {
   const { t } = useTranslation(['dataCollectionForm']);
@@ -40,66 +41,6 @@ const CollectionForm = () => {
   ]);
   const [open, setOpen] = useState(false);
 
-  const addLanguageLabel = () => {
-    const lastLabelId = labelArray[labelArray.length - 1].id;
-    return setLabelArray([
-      ...labelArray,
-      {
-        id: lastLabelId + 1,
-        language: 'en-IE',
-        value: '',
-      },
-    ]);
-  };
-  const handleLabelChange = (e: any) => {
-    e.preventDefault();
-    const index = e.target.id;
-    setLabelArray((s) => {
-      const newLabel = s.slice();
-      newLabel[index].value = e.target.value;
-      return newLabel;
-    });
-  };
-
-  const handleLabelLanguageChange = (e: any, index: number) => {
-    e.preventDefault();
-    setLabelArray((s) => {
-      const newLabel = s.slice();
-      newLabel[index].language = e.target.value;
-      return newLabel;
-    });
-  };
-
-  const addLanguageDescription = () => {
-    const lastDescriptionId = descriptionArray[descriptionArray.length - 1].id;
-    return setDescriptionArray([
-      ...descriptionArray,
-      {
-        id: lastDescriptionId + 1,
-        language: 'en-IE',
-        value: '',
-      },
-    ]);
-  };
-
-  const handleDescriptionChange = (e: any, index: number) => {
-    e.preventDefault();
-    setDescriptionArray((s) => {
-      const newDescription = s.slice();
-      newDescription[index].value = e.target.value;
-      return newDescription;
-    });
-  };
-
-  const handleDescriptionLanguageChange = (e: any) => {
-    e.preventDefault();
-    const index = e.target.id;
-    setDescriptionArray((s) => {
-      const newDescription = s.slice();
-      newDescription[index].language = e.target.value;
-      return newDescription;
-    });
-  };
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -164,56 +105,7 @@ const CollectionForm = () => {
           >
             <Typography variant="h6">{t('label')}:</Typography>
           </Box>
-          {labelArray.map((label, index) => {
-            return (
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'flex-start',
-                }}
-                key={label.id}
-              >
-                <TextField
-                  required
-                  size="small"
-                  label={t('label')}
-                  value={label.value}
-                  sx={{ marginRight: 2, width: '100%' }}
-                  onChange={handleLabelChange}
-                  id={index.toString()}
-                />
-                <Select
-                  color="primary"
-                  value={label.language}
-                  onChange={(e) => handleLabelLanguageChange(e, index)}
-                  id={index.toString()}
-                  sx={{
-                    '& legend': { display: 'none' },
-                    '& fieldset': { top: 0 },
-                  }}
-                  notched={true}
-                >
-                  <MenuItem value="fr-FR">🇫🇷</MenuItem>
-                  <MenuItem value="en-IE">🇬🇧</MenuItem>
-                </Select>
-              </Box>
-            );
-          })}
-
-          <Box
-            component="form"
-            className="CollectionForm"
-            sx={{
-              display: 'flex',
-              justifyContent: 'flex-start',
-            }}
-          >
-            <Button variant="outlined" size="small" onClick={addLanguageLabel}>
-              <Typography>{t('addLanguage')}</Typography>
-            </Button>
-          </Box>
-
+          <IntlTextInput textArray={labelArray} setTextArray={setLabelArray} />
           <Box
             component="form"
             className="CollectionForm"
@@ -228,59 +120,10 @@ const CollectionForm = () => {
             <Typography variant="h6">{t('descriptionField')}:</Typography>
           </Box>
 
-          {descriptionArray.map((description, index) => {
-            return (
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'flex-start',
-                }}
-                key={description.id}
-              >
-                <TextField
-                  required
-                  multiline
-                  rows={3}
-                  label={t('descriptionField')}
-                  value={description.value}
-                  sx={{ marginRight: 2, width: '100%' }}
-                  onChange={(e) => handleDescriptionChange(e, index)}
-                />
-                <Select
-                  color="primary"
-                  value={description.language}
-                  onChange={handleDescriptionLanguageChange}
-                  sx={{
-                    '& legend': { display: 'none' },
-                    '& fieldset': { top: 0 },
-                  }}
-                  notched={true}
-                >
-                  <MenuItem value="fr-FR">🇫🇷</MenuItem>
-                  <MenuItem value="en-IE">🇬🇧</MenuItem>
-                </Select>
-              </Box>
-            );
-          })}
-
-          <Box
-            component="form"
-            className="CollectionForm"
-            sx={{
-              display: 'flex',
-              justifyContent: 'flex-start',
-            }}
-          >
-            <Button
-              variant="outlined"
-              size="small"
-              onClick={addLanguageDescription}
-            >
-              <Typography>{t('addLanguage')}</Typography>
-            </Button>
-          </Box>
-
+          <IntlTextInput
+            textArray={descriptionArray}
+            setTextArray={setDescriptionArray}
+          />
           <Box
             component="form"
             className="CollectionForm"

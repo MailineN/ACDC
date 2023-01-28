@@ -16,6 +16,7 @@ import {
   MenuItem,
   Box,
 } from '@mui/material';
+import IntlTextInput from '../../shared/intlTextInput/IntlTextInput';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import CollectionEvent from '../../../lib/model/collectionEvents';
@@ -83,97 +84,6 @@ const EventForm = (props: DataCollectionProps) => {
     });
   };
 
-  const addLanguageName = () => {
-    const lastNameId =
-      collectionEventNameArray[collectionEventNameArray.length - 1].id;
-    return setCollectionEventNameArray([
-      ...collectionEventNameArray,
-      {
-        id: lastNameId + 1,
-        language: 'en-IE',
-        value: '',
-      },
-    ]);
-  };
-  const handleNameChange = (e: any) => {
-    e.preventDefault();
-    const index = e.target.id;
-    setCollectionEventNameArray((s) => {
-      const newName = s.slice();
-      newName[index].value = e.target.value;
-      return newName;
-    });
-  };
-
-  const handleNameLanguageChange = (e: any, index: number) => {
-    e.preventDefault();
-    setCollectionEventNameArray((s) => {
-      const newName = s.slice();
-      newName[index].language = e.target.value;
-      return newName;
-    });
-  };
-
-  const addLanguageLabel = () => {
-    const lastLabelId = labelArray[labelArray.length - 1].id;
-    return setLabelArray([
-      ...labelArray,
-      {
-        id: lastLabelId + 1,
-        language: 'en-IE',
-        value: '',
-      },
-    ]);
-  };
-  const handleLabelChange = (e: any) => {
-    e.preventDefault();
-    const index = e.target.id;
-    setLabelArray((s) => {
-      const newLabel = s.slice();
-      newLabel[index].value = e.target.value;
-      return newLabel;
-    });
-  };
-
-  const handleLabelLanguageChange = (e: any, index: number) => {
-    e.preventDefault();
-    setLabelArray((s) => {
-      const newLabel = s.slice();
-      newLabel[index].language = e.target.value;
-      return newLabel;
-    });
-  };
-
-  const addLanguageDescription = () => {
-    const lastDescriptionId = descriptionArray[descriptionArray.length - 1].id;
-    return setDescriptionArray([
-      ...descriptionArray,
-      {
-        id: lastDescriptionId + 1,
-        language: 'en-IE',
-        value: '',
-      },
-    ]);
-  };
-
-  const handleDescriptionChange = (e: any, index: number) => {
-    e.preventDefault();
-    setDescriptionArray((s) => {
-      const newDescription = s.slice();
-      newDescription[index].value = e.target.value;
-      return newDescription;
-    });
-  };
-
-  const handleDescriptionLanguageChange = (e: any) => {
-    e.preventDefault();
-    const index = e.target.id;
-    setDescriptionArray((s) => {
-      const newDescription = s.slice();
-      newDescription[index].language = e.target.value;
-      return newDescription;
-    });
-  };
   const handleClickOpen = () => {
     setOpen(true);
     console.log('Start date: ', startDate);
@@ -269,55 +179,10 @@ const EventForm = (props: DataCollectionProps) => {
           >
             <Typography variant="h6">{t('name')}:</Typography>
           </Box>
-          {collectionEventNameArray.map((name, index) => {
-            return (
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'flex-start',
-                }}
-                key={name.id}
-              >
-                <TextField
-                  required
-                  size="small"
-                  label={t('name')}
-                  value={name.value}
-                  sx={{ marginRight: 2, width: '100%' }}
-                  onChange={handleNameChange}
-                  id={index.toString()}
-                />
-                <Select
-                  color="primary"
-                  value={name.language}
-                  onChange={(e) => handleNameLanguageChange(e, index)}
-                  id={index.toString()}
-                  sx={{
-                    '& legend': { display: 'none' },
-                    '& fieldset': { top: 0 },
-                  }}
-                  notched={true}
-                >
-                  <MenuItem value="fr-FR">🇫🇷</MenuItem>
-                  <MenuItem value="en-IE">🇬🇧</MenuItem>
-                </Select>
-              </Box>
-            );
-          })}
-
-          <Box
-            component="form"
-            className="CollectionForm"
-            sx={{
-              display: 'flex',
-              justifyContent: 'flex-start',
-            }}
-          >
-            <Button variant="outlined" size="small" onClick={addLanguageName}>
-              <Typography>{t('addLanguage')}</Typography>
-            </Button>
-          </Box>
+          <IntlTextInput
+            textArray={collectionEventNameArray}
+            setTextArray={setCollectionEventNameArray}
+          />
           <Box
             sx={{
               display: 'flex',
@@ -328,56 +193,7 @@ const EventForm = (props: DataCollectionProps) => {
           >
             <Typography variant="h6">{t('label')}:</Typography>
           </Box>
-          {labelArray.map((label, index) => {
-            return (
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'flex-start',
-                }}
-                key={label.id}
-              >
-                <TextField
-                  required
-                  size="small"
-                  label={t('label')}
-                  value={label.value}
-                  sx={{ marginRight: 2, width: '100%' }}
-                  onChange={handleLabelChange}
-                  id={index.toString()}
-                />
-                <Select
-                  color="primary"
-                  value={label.language}
-                  onChange={(e) => handleLabelLanguageChange(e, index)}
-                  id={index.toString()}
-                  sx={{
-                    '& legend': { display: 'none' },
-                    '& fieldset': { top: 0 },
-                  }}
-                  notched={true}
-                >
-                  <MenuItem value="fr-FR">🇫🇷</MenuItem>
-                  <MenuItem value="en-IE">🇬🇧</MenuItem>
-                </Select>
-              </Box>
-            );
-          })}
-
-          <Box
-            component="form"
-            className="CollectionForm"
-            sx={{
-              display: 'flex',
-              justifyContent: 'flex-start',
-            }}
-          >
-            <Button variant="outlined" size="small" onClick={addLanguageLabel}>
-              <Typography>{t('addLanguage')}</Typography>
-            </Button>
-          </Box>
-
+          <IntlTextInput textArray={labelArray} setTextArray={setLabelArray} />
           <Box
             sx={{
               paddingTop: 2,
@@ -390,58 +206,10 @@ const EventForm = (props: DataCollectionProps) => {
             <Typography variant="h6">{t('descriptionField')}:</Typography>
           </Box>
 
-          {descriptionArray.map((description, index) => {
-            return (
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'flex-start',
-                }}
-                key={description.id}
-              >
-                <TextField
-                  required
-                  multiline
-                  rows={3}
-                  label={t('descriptionField')}
-                  value={description.value}
-                  sx={{ marginRight: 2, width: '100%' }}
-                  onChange={(e) => handleDescriptionChange(e, index)}
-                />
-                <Select
-                  color="primary"
-                  value={description.language}
-                  onChange={handleDescriptionLanguageChange}
-                  sx={{
-                    '& legend': { display: 'none' },
-                    '& fieldset': { top: 0 },
-                  }}
-                  notched={true}
-                >
-                  <MenuItem value="fr-FR">🇫🇷</MenuItem>
-                  <MenuItem value="en-IE">🇬🇧</MenuItem>
-                </Select>
-              </Box>
-            );
-          })}
-
-          <Box
-            component="form"
-            className="CollectionForm"
-            sx={{
-              display: 'flex',
-              justifyContent: 'flex-start',
-            }}
-          >
-            <Button
-              variant="outlined"
-              size="small"
-              onClick={addLanguageDescription}
-            >
-              <Typography>{t('addLanguage')}</Typography>
-            </Button>
-          </Box>
+          <IntlTextInput
+            textArray={descriptionArray}
+            setTextArray={setDescriptionArray}
+          />
 
           <Box
             sx={{
