@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import {
   Typography,
@@ -10,13 +10,12 @@ import {
   DialogContentText,
   Button,
   Stack,
-  TextField,
-  Select,
-  MenuItem,
   Box,
+  DialogTitle,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
 import { DataCollection } from '../../../lib/model/dataCollection';
 import { createDataCollection } from '../../../lib/api/remote/dataCollectionApiFetch';
 import DataCollectionApi from '../../../lib/model/dataCollectionApi';
@@ -25,6 +24,9 @@ import IntlTextInput from '../../shared/intlTextInput/IntlTextInput';
 const CollectionForm = () => {
   const { t } = useTranslation(['dataCollectionForm']);
   const navigate = useNavigate();
+
+  const { isLoading, isError, isSuccess, error, mutate } =
+    useMutation(createDataCollection);
   const [labelArray, setLabelArray] = useState([
     {
       id: 1,
@@ -86,7 +88,7 @@ const CollectionForm = () => {
       id: id,
       json: data,
     };
-    createDataCollection(dataCollection);
+    mutate(dataCollection);
     handleClickOpen();
   };
 
@@ -151,8 +153,15 @@ const CollectionForm = () => {
       </FormControl>
 
       <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>
+          <Typography variant="h5">{t('submitmessage')}</Typography>
+        </DialogTitle>
         <DialogContent>
-          <DialogContentText>{t('submitmessage')}</DialogContentText>
+          <DialogContentText>
+            {isSuccess ? t('success') : ''}
+            {isLoading ? t('loading') : ''}
+            {isError ? t('error') : ''}
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button variant="contained" onClick={handleClose} autoFocus>

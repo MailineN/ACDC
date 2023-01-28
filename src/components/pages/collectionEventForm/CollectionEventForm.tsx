@@ -1,6 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
 import { DatePicker } from '@mui/x-date-pickers';
 import {
   Typography,
@@ -15,10 +18,9 @@ import {
   Select,
   MenuItem,
   Box,
+  DialogTitle,
 } from '@mui/material';
 import IntlTextInput from '../../shared/intlTextInput/IntlTextInput';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 import CollectionEvent from '../../../lib/model/collectionEvents';
 import TypeOfModeOfCollection from '../../../lib/model/typeOfModeOfCollection';
 import InstrumentReference from '../../../lib/model/instrumentReference';
@@ -33,6 +35,8 @@ const EventForm = (props: DataCollectionProps) => {
   //TODO: Refactor tout ça pour que ce soit plus propre
   const { t } = useTranslation(['collectionEventForm']);
   const navigate = useNavigate();
+  const { isLoading, isError, isSuccess, error, mutate } =
+    useMutation(updateDataCollection);
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(new Date());
   const [modeCollection, setModeCollection] = useState([
@@ -162,7 +166,7 @@ const EventForm = (props: DataCollectionProps) => {
       updatedDataCollection
     );
 
-    updateDataCollection(updatedDataCollection);
+    mutate(updatedDataCollection);
 
     handleClickOpen();
   };
@@ -320,8 +324,15 @@ const EventForm = (props: DataCollectionProps) => {
       </FormControl>
 
       <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>
+          <Typography variant="h5">{t('submitmessage')}</Typography>
+        </DialogTitle>
         <DialogContent>
-          <DialogContentText>{t('submitmessage')}</DialogContentText>
+          <DialogContentText>
+            {isSuccess ? t('success') : ''}
+            {isLoading ? t('loading') : ''}
+            {isError ? t('error') : ''}
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button variant="contained" onClick={handleClose} autoFocus>
