@@ -90,7 +90,7 @@ const EventForm = (props: DataCollectionProps) => {
       ...collectionEventNameArray,
       {
         id: lastNameId + 1,
-        language: 'en',
+        language: 'en-IE',
         value: '',
       },
     ]);
@@ -98,7 +98,7 @@ const EventForm = (props: DataCollectionProps) => {
   const handleNameChange = (e: any) => {
     e.preventDefault();
     const index = e.target.id;
-    setLabelArray((s) => {
+    setCollectionEventNameArray((s) => {
       const newName = s.slice();
       newName[index].value = e.target.value;
       return newName;
@@ -107,7 +107,7 @@ const EventForm = (props: DataCollectionProps) => {
 
   const handleNameLanguageChange = (e: any, index: number) => {
     e.preventDefault();
-    setLabelArray((s) => {
+    setCollectionEventNameArray((s) => {
       const newName = s.slice();
       newName[index].language = e.target.value;
       return newName;
@@ -120,7 +120,7 @@ const EventForm = (props: DataCollectionProps) => {
       ...labelArray,
       {
         id: lastLabelId + 1,
-        language: 'en',
+        language: 'en-IE',
         value: '',
       },
     ]);
@@ -150,7 +150,7 @@ const EventForm = (props: DataCollectionProps) => {
       ...descriptionArray,
       {
         id: lastDescriptionId + 1,
-        language: 'en',
+        language: 'en-IE',
         value: '',
       },
     ]);
@@ -199,7 +199,7 @@ const EventForm = (props: DataCollectionProps) => {
         type: mode.type,
       });
     });
-    var collectionEventName: Record<'fr-FR' | 'en-IE' | string, string> =
+    let collectionEventName: Record<'fr-FR' | 'en-IE' | string, string> =
       collectionEventNameArray.reduce(function (
         map: Record<'fr-FR' | 'en-IE' | string, string>,
         obj
@@ -208,7 +208,7 @@ const EventForm = (props: DataCollectionProps) => {
         return map;
       },
       {});
-    var label: Record<'fr-FR' | 'en-IE' | string, string> = labelArray.reduce(
+    let label: Record<'fr-FR' | 'en-IE' | string, string> = labelArray.reduce(
       function (map: Record<'fr-FR' | 'en-IE' | string, string>, obj) {
         map[obj.language] = obj.value;
         return map;
@@ -216,7 +216,7 @@ const EventForm = (props: DataCollectionProps) => {
       {}
     );
 
-    var description: Record<'fr-FR' | 'en-IE' | string, string> =
+    let description: Record<'fr-FR' | 'en-IE' | string, string> =
       descriptionArray.reduce(function (
         map: Record<'fr-FR' | 'en-IE' | string, string>,
         obj
@@ -247,7 +247,10 @@ const EventForm = (props: DataCollectionProps) => {
       json: props.DataCollectionApi.json,
     };
 
-    console.log('Data: ', data);
+    console.log(
+      'Updated Data Collection with new Collection Event: ',
+      updatedDataCollection
+    );
 
     updateDataCollection(updatedDataCollection);
 
@@ -279,7 +282,7 @@ const EventForm = (props: DataCollectionProps) => {
                 <TextField
                   required
                   size="small"
-                  label={t('label')}
+                  label={t('name')}
                   value={name.value}
                   sx={{ marginRight: 2, width: '100%' }}
                   onChange={handleNameChange}
@@ -491,8 +494,8 @@ const EventForm = (props: DataCollectionProps) => {
               >
                 <Select
                   color="primary"
-                  labelId="select-program"
-                  label={t('statistical_program')}
+                  labelId="select-mode-collection"
+                  label={t('modeOfCollection')}
                   displayEmpty
                   value={mode.type}
                   onChange={(e) => handleModeCollectionChange(e, index)}

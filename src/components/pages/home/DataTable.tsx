@@ -5,7 +5,8 @@ import {
   GridToolbarFilterButton,
   GridColDef,
 } from '@mui/x-data-grid';
-import { Box, Link } from '@mui/material';
+import { Box } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { FiChevronRight } from 'react-icons/fi';
 import { dataCollectionApiMock } from '../../../lib/api/mock/dataCollectionApiMock';
@@ -59,9 +60,9 @@ const DataGridHomePage = (props: DataGridHomePageProps) => {
       description: t('goToCollection').toString(),
       renderCell: (params: any) => (
         <Link
-          href={`/collection/${params.value.id}`}
-          underline="none"
-          color="inherit"
+          to={`/collection/${params.value.id}`}
+          style={{ textDecoration: 'none' }}
+          state={{ dataCollection: params.value }}
         >
           <FiChevronRight />
         </Link>

@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -52,7 +51,6 @@ const Home = () => {
     const rows: DataCollectionRow[] = [];
     data.forEach((dataCollectionApi: DataCollectionApi) => {
       const dataCollection: DataCollection = dataCollectionApi.json;
-      console.log('Retrieved data : ', dataCollection);
       const labelData = () => {
         switch (i18n.language) {
           case 'fr-FR':
@@ -69,9 +67,8 @@ const Home = () => {
 
         action: dataCollection,
       });
-
-      console.log('Retrieved rows data : ', rows);
     });
+    console.log('Get all data collection: ', rows);
     return (
       <Main>
         <Typography variant="h2" fontWeight="xl">
@@ -81,7 +78,6 @@ const Home = () => {
           {t('description')}
         </Typography>
         <DataGridHomePage rows={rows} heightTable={400} />
-        {/* <DataGridHomePage rows={data} heightTable={400} /> */}
         <Button variant="contained" sx={{ marginTop: 3 }} onClick={handleClick}>
           <Typography variant="subtitle1">{t('createButton')}</Typography>
         </Button>

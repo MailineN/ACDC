@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import Main from '../../shared/layout/Main';
 import CollectionForm from './DataCollectionForm';

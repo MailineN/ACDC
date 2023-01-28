@@ -24,9 +24,6 @@ import DataCollectionApi from '../../../lib/model/dataCollectionApi';
 const CollectionForm = () => {
   const { t } = useTranslation(['dataCollectionForm']);
   const navigate = useNavigate();
-
-  const [statisticalProgram, setStatisticalProgram] = useState('EEC');
-  const [statisticalCycle, setStatisticalCycle] = useState('2023');
   const [labelArray, setLabelArray] = useState([
     {
       id: 1,
@@ -49,7 +46,7 @@ const CollectionForm = () => {
       ...labelArray,
       {
         id: lastLabelId + 1,
-        language: 'en',
+        language: 'en-IE',
         value: '',
       },
     ]);
@@ -79,7 +76,7 @@ const CollectionForm = () => {
       ...descriptionArray,
       {
         id: lastDescriptionId + 1,
-        language: 'en',
+        language: 'en-IE',
         value: '',
       },
     ]);
@@ -117,14 +114,14 @@ const CollectionForm = () => {
     const now = Date.now();
     const today = new Date(now);
     const id = uuidv4();
-    var label: Record<'fr-FR' | 'en-IE' | string, string> = labelArray.reduce(
+    let label: Record<'fr-FR' | 'en-IE' | string, string> = labelArray.reduce(
       function (map: Record<'fr-FR' | 'en-IE' | string, string>, obj) {
         map[obj.language] = obj.value;
         return map;
       },
       {}
     );
-    var description: Record<'fr-FR' | 'en-IE' | string, string> =
+    let description: Record<'fr-FR' | 'en-IE' | string, string> =
       descriptionArray.reduce(function (
         map: Record<'fr-FR' | 'en-IE' | string, string>,
         obj

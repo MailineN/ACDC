@@ -33,17 +33,13 @@ export async function createDataCollection(
 export function updateDataCollection(
   dataCollectionApi: DataCollectionApi
 ): Promise<DataCollectionApi> {
-  return fetch(
-    import.meta.env.VITE_API_BASE_URL +
-      `api/data-collections/${dataCollectionApi.id}`,
-    {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(dataCollectionApi),
-    }
-  ).then((response) => response.json());
+  return fetch(import.meta.env.VITE_API_BASE_URL + 'api/data-collections', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(dataCollectionApi),
+  }).then((response) => response.json());
 }
 
 export async function getDataCollectionRows(): Promise<any[]> {
