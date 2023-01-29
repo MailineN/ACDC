@@ -154,7 +154,11 @@ const EventForm = (props: DataCollectionProps) => {
       typeOfModeOfCollection: modeOfCollection,
       dataCollectionDate: dates,
     };
-    props.DataCollectionApi?.json.collectionEvents.push(data);
+    const now = Date.now();
+    const today: string = new Date(now).toISOString();
+    props.DataCollectionApi.json.collectionEvents.push(data);
+    props.DataCollectionApi.json.version += 1;
+    props.DataCollectionApi.json.versionDate = today;
 
     const updatedDataCollection: DataCollectionApi = {
       id: props.DataCollectionApi?.id,
