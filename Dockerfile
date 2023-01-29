@@ -1,7 +1,7 @@
 FROM node
 WORKDIR /app
-COPY package.json .
-RUN npm i
+COPY package.json yarn.lock ./
+RUN yarn
 COPY . .
 EXPOSE 3000
-CMD ["npm", "run", "dev"]
+CMD ["yarn", "run", "build"]
