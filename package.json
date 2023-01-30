@@ -40,7 +40,6 @@
     "react-i18next": "^12.1.4",
     "react-icons": "^4.7.1",
     "react-is": "^18.2.0",
-    "react-query": "^3.39.3",
     "react-router-dom": "^6.6.2",
     "styled-components": "^5.3.6",
     "tss-react": "^4.5.2",

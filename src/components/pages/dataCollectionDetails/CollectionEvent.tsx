@@ -18,6 +18,7 @@ import CollectionEvent from '../../../lib/model/collectionEvents';
 
 interface CollectionEventDisplayProps {
   collectionEvent: CollectionEvent;
+  handleDeleteCollectionEvent: (id: string) => void;
 }
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -36,9 +37,19 @@ const CollectionEventDisplay = (props: CollectionEventDisplayProps) => {
   const { t, i18n } = useTranslation(['dataCollectionDetails']);
   const { collectionEvent } = props;
   const [expanded, setExpanded] = useState(false);
+  const [edit, setEdit] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+  const handleEditClick = () => {
+    console.log('edit');
+    setEdit(!edit);
+  };
+
+  const handleDeleteClick = () => {
+    console.log('delete');
+    props.handleDeleteCollectionEvent(collectionEvent.id);
   };
   return (
     <Card
@@ -158,14 +169,51 @@ const CollectionEventDisplay = (props: CollectionEventDisplayProps) => {
             sx={{
               display: 'flex',
               flexDirection: 'row',
+            }}
+          >
+            <Typography
+              variant="body1"
+              fontWeight="bold"
+              sx={{ marginRight: 1 }}
+            >
+              {t('modeOfCollection')}:{' '}
+            </Typography>
+
+            {collectionEvent.typeOfModeOfCollection.map((mode) => {
+              return (
+                <Typography variant="body1" key={mode.type} sx={{ ml: 0.5 }}>
+                  {mode.type}{' '}
+                </Typography>
+              );
+            })}
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+            }}
+          >
+            <Typography
+              variant="body1"
+              fontWeight="bold"
+              sx={{ marginRight: 1 }}
+            >
+              {t('instrumentReference')}:{' '}
+            </Typography>
+            <Typography variant="body1">
+              {collectionEvent.instrumentReference.typeOfObject}
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
               justifyContent: 'flex-end',
             }}
           >
             <Button
               size="small"
-              onClick={() => {
-                console.log('show details');
-              }}
+              onClick={handleEditClick}
               variant="contained"
               sx={{ marginLeft: 2 }}
             >
@@ -175,9 +223,7 @@ const CollectionEventDisplay = (props: CollectionEventDisplayProps) => {
             </Button>
             <Button
               size="small"
-              onClick={() => {
-                console.log('delete event');
-              }}
+              onClick={handleDeleteClick}
               variant="outlined"
               sx={{ marginLeft: 2 }}
             >

@@ -41,3 +41,12 @@ export function updateDataCollection(
     body: JSON.stringify(dataCollectionApi),
   }).then((response) => response.json());
 }
+
+export function deleteDataCollection(id: string): Promise<void> {
+  return fetch(
+    `${import.meta.env.VITE_API_BASE_URL}api/data-collections/${id}`,
+    {
+      method: 'DELETE',
+    }
+  ).then((response) => response.json());
+}
