@@ -1,11 +1,25 @@
 {
-  "title": "Campagne de collecte",
+  "title": "Campagne de collecte: ",
   "save": "Sauvegarder",
   "publish": "Publier",
   "newCollectionEvent": "Nouveau Lot",
   "showDetails": "Détails",
   "delete": "Supprimer",
+  "close": "Fermer",
   "label": "Label",
   "collectionEvent": "Lot",
-  "createButton": "Nouveau Lot"
+  "createButton": "Nouveau Lot",
+  "dataCollectionDetails": "Détails de la campagne",
+  "version": "Version",
+  "lastUpdate": "Dernière mise à jour",
+  "description": "Description",
+  "edit": "Modifier",
+  "editEvent": "Modifier le lot",
+  "modeOfCollection": "Mode de collecte",
+  "instrumentReference": "Intrument (?)",
+  "deleteCollectionEvent": "Suppression de lot",
+  "deleteDataCollection": "Suppression de collecte",
+  "loading": "Traitement en cours...",
+  "error": "Une erreur est survenue",
+  "successEvent": "Le lot a été supprimé avec succès"
 }

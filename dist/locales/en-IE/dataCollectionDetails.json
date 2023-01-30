@@ -1,11 +1,25 @@
 {
-  "title": "Data Collection ",
+  "title": "Data Collection: ",
   "save": "Save",
   "publish": "Publish",
   "newCollectionEvent": "New Collection Event",
   "showDetails": "Show Details",
   "delete": "Delete",
+  "close": "Close",
   "label": "Label",
   "collectionEvent": "Collection Event",
-  "createButton": "New Collection Event"
+  "createButton": "New Collection Event",
+  "dataCollectionDetails": "Data Collection details",
+  "version": "Version",
+  "lastUpdate": "Last Updated",
+  "description": "Description",
+  "edit": "Edit",
+  "editEvent": "Edit Collection Event",
+  "modeOfCollection": "Collection mode",
+  "instrumentReference": "Instrument reference",
+  "deleteCollectionEvent": "Delete Collection Event",
+  "deleteDataCollection": "Delete Data Collection",
+  "loading": "Request is being processed...",
+  "error": "An error occurred",
+  "successEvent": "Collection Event deleted successfully"
 }

@@ -6,8 +6,10 @@
   "page": "Page",
   "rows": "Rows",
   "search": "Search",
+  "description": "Description",
   "statisticalProgram": "Statistical Program",
   "programCycle": "Edition",
   "lastUpdate": "Last Updated",
+  "version": "Version",
   "goToCollection": "Go to Collection Page"
 }
