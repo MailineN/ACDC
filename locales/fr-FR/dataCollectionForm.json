@@ -1,0 +1,16 @@
+{
+  "title": "Nouvelle Campagne",
+  "description": "Créer une nouvelle campagne en remplissant les champs ci-dessous.",
+  "submit": "Envoyer",
+  "cancel": "Annuler",
+  "close": "Fermer",
+  "loading": "Traitement en cours...",
+  "error": "Une erreur est survenue",
+  "success": "La campagne a été crée avec succès",
+  "statistical_program": "Enquête ",
+  "statistical_cycle": "Édition?",
+  "label": "Label",
+  "descriptionField": "Description",
+  "submitmessage": "Nouvelle campagne",
+  "addLanguage": "Ajouter une langue"
+}

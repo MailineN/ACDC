@@ -1,0 +1,21 @@
+{
+  "title": "New Collection event",
+  "description": "Create a new collection event for collection: ",
+  "submit": "Submit",
+  "cancel": "Cancel",
+  "close": "Close",
+  "label": "Label",
+  "name": "Name",
+  "descriptionField": "Description",
+  "submitmessage": "New Collection Event",
+  "loading": "Request is being processed...",
+  "error": "An error occurred",
+  "success": "Collection Event created successfully",
+  "addLanguage": "Add language",
+  "dataCollectionDate": "Data collection date",
+  "collectionStartDate": "Collection start date",
+  "collectionEndDate": "Collection end date",
+  "modeOfCollection": "Collection mode",
+  "instrumentReference": "Instrument reference",
+  "addModeCollection": "Add collection mode"
+}
