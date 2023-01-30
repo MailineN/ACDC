@@ -17,6 +17,14 @@ i18next
       'fr-FR': ['fr-FR'],
       default: ['en-IE'],
     },
+    ns: [
+      'common',
+      'home',
+      'header',
+      'dataCollectionForm',
+      'collectionEventForm',
+      'dataCollectionDetails',
+    ],
 
     interpolation: {
       escapeValue: false,

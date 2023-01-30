@@ -1,5 +1,5 @@
 {
-  "title": "Data Collection ",
+  "title": "Data Collection: ",
   "save": "Save",
   "publish": "Publish",
   "newCollectionEvent": "New Collection Event",
@@ -7,5 +7,10 @@
   "delete": "Delete",
   "label": "Label",
   "collectionEvent": "Collection Event",
-  "createButton": "New Collection Event"
+  "createButton": "New Collection Event",
+  "dataCollectionDetails": "Data Collection details",
+  "version": "Version",
+  "lastUpdate": "Last Updated",
+  "description": "Description",
+  "edit": "Edit"
 }

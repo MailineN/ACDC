@@ -29,7 +29,6 @@ const CustomToolbar = () => {
 
 const DataGridHomePage = (props: DataGridHomePageProps) => {
   const { t } = useTranslation(['common']);
-
   const columns: GridColDef[] = [
     {
       field: 'id',
@@ -52,6 +51,14 @@ const DataGridHomePage = (props: DataGridHomePageProps) => {
       flex: 0.2,
 
       description: t('lastUpdate').toString(),
+    },
+    {
+      field: 'version',
+      headerName: t('version').toString(),
+      headerClassName: 'columns--header',
+      flex: 0.1,
+
+      description: t('version').toString(),
     },
     {
       field: 'action',

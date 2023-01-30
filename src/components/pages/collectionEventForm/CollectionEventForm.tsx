@@ -97,7 +97,7 @@ const EventForm = (props: DataCollectionProps) => {
 
   const handleClose = () => {
     setOpen(false);
-    navigate('/');
+    navigate(-1);
   };
 
   const handleSubmit = (e: React.MouseEvent) => {
